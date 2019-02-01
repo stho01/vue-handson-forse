@@ -1,10 +1,10 @@
 export interface IProductDto {
-  id: string;
-  name: string;
-  weight: number;
+    id: string;
+    name: string;
+    weight: number;
 }
 
 export interface IProductNameDto {
-  id: string;
-  name: string;
+    id: string;
+    name: string;
 }

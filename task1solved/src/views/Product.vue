@@ -8,7 +8,7 @@
             <table>
                 <tbody>
                 <tr>
-                    <th colspan="2">Produkt - {{product.name}}</th>
+                    <th colspan="2">Produkt - {{product.name }}</th>
                 </tr>
                 <tr>
                     <th>Navn</th>
@@ -93,7 +93,7 @@
         private async _fetchData(): Promise<void> {
             this.product = await this._load(
                     "Vennligst vent mens produktet laster inn...",
-                    productApi.getProduct.bind(productApi, this.id));
+                    productApi.getProduct(this.id));
         }
 
         /**
@@ -112,8 +112,7 @@
 
             await this._load(
                     "Vennligst vent mens produktet lagres...",
-                    productApi.upsertProduct.bind(productApi, product)
-            );
+                    productApi.upsertProduct(product));
         }
 
         /**
@@ -124,11 +123,11 @@
          * @param action
          * @private
          */
-        private async _load<T>(message: string, action: {():Promise<T>}): Promise<T|null> {
+        private async _load<T>(message: string, action: Promise<T>): Promise<T|null> {
             try {
                 this._showLoader(message);
 
-                return await action();
+                return await action;
             } catch (e) {
                 this._showError(e.toString());
                 return null;

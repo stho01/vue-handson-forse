@@ -13,7 +13,7 @@ class ProductApi {
     //********************************************
 
     async getProducts(): Promise<IProductNameDto[]> {
-        await delay(); // to simulate data transfer over a network.
+        await delay(); // to simulate data transfer over network.
 
         return this._products.map(product => ({
             name: product.name,
@@ -24,7 +24,7 @@ class ProductApi {
     //********************************************
 
     async getProductsWithWeight(): Promise<IProductDto[]> {
-        await delay(); // to simulate data transfer over a network.
+        await delay(); // to simulate data transfer over network.
 
         return this._products.map(p => ({
             name: p.name,
@@ -36,12 +36,12 @@ class ProductApi {
     //********************************************
 
     async getProduct(id: string): Promise<IProduct> {
-        await delay(); // to simulate data transfer over a network.
+        await delay(); // to simulate data transfer over network.
 
         const product: IProduct | undefined = this._products.filter(p => p.id === id).pop();
 
         if (!product) {
-            throw new Error(`Produkt finnes ikke for id ${id}`);
+            throw new Error(`Produktet med id ${id} finnes ikke`);
         }
 
         return product;
