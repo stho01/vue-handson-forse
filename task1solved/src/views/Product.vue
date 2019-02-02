@@ -1,7 +1,7 @@
 <template>
     <div class="product">
         <h1>Produkt</h1>
-        <button class="button" type="button" @click.prevent="goBack">Tilbake</button>
+        <back-button />
         <wait v-if="loading">{{loadingMessage}}</wait>
         <error v-else-if="product == null">{{errorMessage}}</error>
         <div v-else>
@@ -43,10 +43,12 @@
     import {IProductDto} from "@/dto/product";
     import Wait from "@/components/Wait.vue";
     import Error from "@/components/Error.vue";
+    import BackButton from "@/components/BackButton.vue";
 
     @Component({
         name: "product",
         components: {
+            BackButton,
             Wait,
             Error
         }
@@ -163,13 +165,6 @@
         private _showError(message: string): void {
             this.errorMessage = message;
             this.product = null;
-        }
-
-        /**
-         * Navigate user back to previous route
-         */
-        goBack(): void {
-            this.$router.back();
         }
     }
 </script>
