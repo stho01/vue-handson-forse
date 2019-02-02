@@ -2,8 +2,8 @@
     <div class="product">
         <h1>Produkt</h1>
         <button class="button" type="button" @click.prevent="goBack">Tilbake</button>
-        <wait v-if="loading" :message="loadingMessage"/>
-        <error v-else-if="product == null" :message="errorMessage"/>
+        <wait v-if="loading">{{loadingMessage}}</wait>
+        <error v-else-if="product == null">{{errorMessage}}</error>
         <div v-else>
             <table>
                 <tbody>

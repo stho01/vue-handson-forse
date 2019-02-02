@@ -1,7 +1,7 @@
 <template>
     <div class="wait">
         <loader />
-        <div>{{message}}</div>
+        <slot>{{message}}</slot>
     </div>
 </template>
 <script lang="ts">

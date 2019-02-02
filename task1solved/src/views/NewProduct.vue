@@ -1,7 +1,7 @@
 <template>
     <div class="new-product">
         <h1>Nytt produkt</h1>
-        <wait v-if="saving" message="Vennligst vent mens produktet lagres..."></wait>
+        <wait v-if="saving">Vennligst vent mens produktet lagres...</wait>
         <table v-else>
             <tbody>
             <tr>

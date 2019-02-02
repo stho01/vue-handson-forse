@@ -1,7 +1,7 @@
 <template>
     <div class="products">
         <h1>Produkter</h1>
-        <wait v-if="loading" message="Vennligst vent mens produkter laster inn..."/>
+        <wait v-if="loading">Vennligst vent mens produkter laster inn...</wait>
         <div v-else>
             <table>
                 <thead>
@@ -39,7 +39,7 @@
     import Wait from "../components/Wait.vue";
     import Component from "vue-class-component";
     import {IProductName} from "@/domain/product";
-    import {RawLocation, Route} from "vue-router";
+    import {RawLocation} from "vue-router";
     import {RouteNames} from "@/router";
 
     @Component({
@@ -66,7 +66,7 @@
         //** METHODS
 
         protected newProduct(): void {
-            this.$router.push({name: "newproduct"});
+            this.$router.push({name: RouteNames.NEW_PRODUCT});
         }
 
         protected getProductRoute(id: number): RawLocation {

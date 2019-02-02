@@ -1,10 +1,7 @@
-<template>
-    <div class="error">
-        <slot :message="message">{{message}}</slot>
-    </div>
+<template functional>
+    <div class="error"><slot /></div>
 </template>
+
 <script lang="ts">
-    export default {
-        props: ["message"]
-    }
+    export default {};
 </script>
