@@ -4,31 +4,29 @@
         <back-button />
         <wait v-if="loading">{{loadingMessage}}</wait>
         <error v-else-if="product == null">{{errorMessage}}</error>
-        <div v-else>
-            <table>
-                <tbody>
-                <tr>
-                    <th colspan="2">Produkt - {{product.name }}</th>
-                </tr>
-                <tr>
-                    <th>Navn</th>
-                    <td><input type="text" v-model="product.name"></td>
-                </tr>
-                <tr>
-                    <th>Vekt</th>
-                    <td><input type="text" v-model.number="product.weight"></td>
-                </tr>
-                </tbody>
-                <tfoot>
-                <tr>
-                    <td></td>
-                    <td>
-                        <button class="button" @click="save">Lagre</button>
-                    </td>
-                </tr>
-                </tfoot>
-            </table>
-        </div>
+        <table v-else>
+            <tbody>
+            <tr>
+                <th colspan="2">Produkt - {{ product.name }}</th>
+            </tr>
+            <tr>
+                <th>Navn</th>
+                <td><input type="text" v-model="product.name"></td>
+            </tr>
+            <tr>
+                <th>Vekt</th>
+                <td><input type="text" v-model.number="product.weight"></td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td></td>
+                <td>
+                    <button class="button" @click="save">Lagre</button>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
     </div>
 </template>
 
@@ -44,7 +42,7 @@
     import Wait from "@/components/Wait.vue";
     import Error from "@/components/Error.vue";
     import BackButton from "@/components/BackButton.vue";
-
+    
     @Component({
         name: "product",
         components: {
