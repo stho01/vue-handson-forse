@@ -43,7 +43,10 @@
 
     @Component({
         name: "new-product",
-        components: {Error, Wait}
+        components: {
+            Error,
+            Wait
+        }
     })
     export default class NewProduct extends Vue {
 
@@ -70,6 +73,7 @@
                 };
 
                 await productApi.upsertProduct(product);
+
                 this.$router.replace({name: "products"});
             } catch (e) {
                 this.errorMessage = e.toString();
