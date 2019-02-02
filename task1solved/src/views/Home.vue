@@ -2,8 +2,8 @@
     <div class="home">
         <h1>Forside</h1>
         <div class="home__shortcuts">
-            <router-link :to="{name: 'products'}">Produkter</router-link>
-            <router-link :to="{name: 'newproduct'}">Nytt Produkt</router-link>
+            <router-link :to="{ name: RouteNames.PRODUCTS }">Produkter</router-link>
+            <router-link :to="{ name: RouteNames.NEW_PRODUCT }">Nytt Produkt</router-link>
         </div>
     </div>
 </template>

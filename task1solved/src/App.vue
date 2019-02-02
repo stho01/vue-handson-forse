@@ -6,8 +6,8 @@
                     <img src="./assets/logo.svg" alt="Forse logo" class="app__logo">
                 </router-link>
                 <nav>
-                    <router-link :to="{ name: 'home' }" exact title="Forside">Forside</router-link>
-                    <router-link :to="{ name: 'products' }" title="Produkter">Produkter</router-link>
+                    <router-link :to="{ name: RouteNames.HOME }" exact title="Forside">Forside</router-link>
+                    <router-link :to="{ name: RouteNames.PRODUCTS }" title="Produkter">Produkter</router-link>
                 </nav>
             </div>
         </div>

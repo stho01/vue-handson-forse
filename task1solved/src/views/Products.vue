@@ -16,7 +16,7 @@
                 <tbody>
                 <tr v-for="product in products" :key="product.id">
                     <td>
-                        <router-link :to="{ name: 'product', params: { id: product.id.toString() } }">{{product.id}}</router-link>
+                        <router-link :to="getProductRoute(product.id)">{{product.id}}</router-link>
                     </td>
                     <td>{{product.name}}</td>
                 </tr>
@@ -39,6 +39,8 @@
     import Wait from "../components/Wait.vue";
     import Component from "vue-class-component";
     import {IProductName} from "@/domain/product";
+    import {RawLocation, Route} from "vue-router";
+    import {RouteNames} from "@/router";
 
     @Component({
         name: "products",
@@ -65,6 +67,13 @@
 
         protected newProduct(): void {
             this.$router.push({name: "newproduct"});
+        }
+
+        protected getProductRoute(id: number): RawLocation {
+            return {
+                name: RouteNames.PRODUCT,
+                params: { id: id.toString(10) }
+            };
         }
 
     }
