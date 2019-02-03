@@ -7,13 +7,17 @@
 <body>
 
 <div id="app">
+    <h2>Foo</h2>
+    <foo message="Foo Component #1" value="10"></foo>
+    <foo message="Foo Component #2" value="20"></foo>
+    <foo message="Foo Component #3" value="30"></foo> <!-- Value blir sendt inn som String -->
+    <foo message="Foo Component #3" :value="30"></foo> <!-- Value blir sendt inn som Number -->
+    <foo :message="'Foo Components #3'" :value="2"></foo>
 
-    <foo message="Foo Component #1" value="1"> </foo>
-    <foo message="Foo Component #2" value="2"></foo>
-    <foo message="Foo Component #3" value="3"></foo>
-
+    <h2>Bar</h2>
     <bar message="Component #1" :value="10"></bar>
-    <bar message="Component #2" :value="20"></bar>
+    <bar message="Component #2" :value="20" :active="true"></bar>
+    <bar message="Component #2" :value="20" active></bar>
 
     <!-- Fails: -->
     <!-- <bar></bar>  -->
@@ -25,7 +29,7 @@
 
     Vue.component("foo", {
         props: ["message", "value"],
-        template: `<div>{{message}}</div>`
+        template: `<div>{{$props}}</div>`
     });
 
     Vue.component("bar", {
@@ -36,9 +40,12 @@
             },
             "value": {
                 type: Number
+            },
+            "active": {
+                type: Boolean
             }
         },
-        template: `<div style="color: purple">{{message}} - {{value}}</div>`
+        template: `<div style="color: purple">{{$props}}</div>`
     });
 
     new Vue({
