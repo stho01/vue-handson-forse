@@ -2,11 +2,6 @@
 
 import Vue from "vue";
 import Router from "vue-router";
-import Products from "@/views/Products.vue";
-import Product from "@/views/Product.vue";
-import Http404NotFound from "@/views/Http404NotFound.vue";
-import Home from "@/views/Home.vue";
-import NewProduct from "@/views/NewProduct.vue";
 
 export enum RouteNames {
     HOME = "home",
@@ -24,22 +19,22 @@ export const router = new Router({
     routes: [{
         name: RouteNames.NEW_PRODUCT,
         path: "/product/new",
-        component: NewProduct
+        component: () => import("@/views/NewProduct.vue")
     },{
         name: RouteNames.PRODUCT,
         path: "/product/:id",
-        component: Product,
+        component: () => import("@/views/Product.vue"),
         props: true
     },{
         path: "/product",
-        component: Products,
+        component: () => import("@/views/Products.vue"),
         name: RouteNames.PRODUCTS,
     }, {
         path: "/",
-        component: Home,
+        component: () => import("@/views/Home.vue"),
         name: RouteNames.HOME
     }, {
         path: "*",
-        component: Http404NotFound
+        component: () => import("@/views/Http404NotFound.vue")
     }]
 });

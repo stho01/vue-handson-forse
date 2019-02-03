@@ -46,6 +46,7 @@
                 await productApi.upsertProduct(newProduct);
 
                 this.$router.replace({name: RouteNames.PRODUCTS});
+
                 EventBus.$emit(NotificationEvents.DISPLAY, {
                     message: `${newProduct.name} lagt til i produktlisten`
                 });
@@ -84,9 +85,3 @@
 
     }
 </script>
-
-<style scoped lang="scss">
-    .new-product {
-
-    }
-</style>

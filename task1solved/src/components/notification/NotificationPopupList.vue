@@ -31,7 +31,7 @@
 
         //** PROPS
 
-        @Prop({ default: 2000 })
+        @Prop({ default: 3000 })
         displayTime !: number;
 
         //** DATA FIELDS:
