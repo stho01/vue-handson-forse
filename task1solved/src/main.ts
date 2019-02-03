@@ -7,7 +7,6 @@ import {RouteNames, router} from "./router";
 Vue.config.productionTip = false;
 
 Vue.use((Vue: typeof _Vue) => {
-  // Inject Route Names to Vue Rendering context.
   Vue.prototype.RouteNames = RouteNames;
 });
 

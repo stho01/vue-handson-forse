@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+
+    <foo message="Foo Component #1" value="1"> </foo>
+    <foo message="Foo Component #2" value="2"></foo>
+    <foo message="Foo Component #3" value="3"></foo>
+
+    <bar message="Component #1" :value="10"></bar>
+    <bar message="Component #2" :value="20"></bar>
+
+    <!-- Fails: -->
+    <!-- <bar></bar>  -->
+    <!-- <bar message="<Message>" value="1"></bar>  -->
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+
+    Vue.component("foo", {
+        props: ["message", "value"],
+        template: `<div>{{message}}</div>`
+    });
+
+    Vue.component("bar", {
+        props: {
+            "message": {
+                type: String,
+                required: true
+            },
+            "value": {
+                type: Number
+            }
+        },
+        template: `<div style="color: purple">{{message}} - {{value}}</div>`
+    });
+
+    new Vue({
+        el: "#app"
+    });
+
+</script>
+
+</body>
+</html>

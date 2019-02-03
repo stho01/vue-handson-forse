@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .red {
+            background: red;
+        }
+
+        .blue {
+            color: white;
+            background: blue;
+        }
+    </style>
+</head>
+<body>
+
+<div id="app">
+    <div>
+        <button v-on:click="toggleClassName">Switch Color</button>
+        <div v-bind:class="cssClass">Disco</div>
+    </div>
+    <div>
+        eller
+    </div>
+    <div>
+        <button @click="toggleClassName">Switch Color</button>
+        <div :class="cssClass">Disco</div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+
+    var data = {
+        cssClass: "red"
+    }
+
+    new Vue({
+        el: "#app",
+        data,
+        methods: {
+            toggleClassName() {
+                this.cssClass = this.cssClass === "red" ? "blue" : "red"
+            }
+        }
+    })
+
+</script>
+</body>
+</html>

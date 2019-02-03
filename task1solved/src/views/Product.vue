@@ -112,7 +112,6 @@
             };
         }
 
-
         /**
          * Displays a loader before calling the asynchronous method
          * and hides it whenever the task is done with it's work.
