@@ -1,3 +1,3 @@
 export enum NotificationEvents {
-    DISPLAY = "notification:display"
+    DISPLAY = "notification-display"
 }
