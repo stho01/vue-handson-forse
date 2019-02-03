@@ -1,32 +1,9 @@
 <template>
     <div class="product">
         <h1>Produkt</h1>
-        <back-button />
         <wait v-if="loading">{{loadingMessage}}</wait>
         <error v-else-if="product == null">{{errorMessage}}</error>
-        <table v-else>
-            <tbody>
-            <tr>
-                <th colspan="2">Produkt - {{ product.name }}</th>
-            </tr>
-            <tr>
-                <th>Navn</th>
-                <td><input type="text" v-model="product.name"></td>
-            </tr>
-            <tr>
-                <th>Vekt</th>
-                <td><input type="text" v-model.number="product.weight"></td>
-            </tr>
-            </tbody>
-            <tfoot>
-            <tr>
-                <td></td>
-                <td>
-                    <button class="button" @click="save">Lagre</button>
-                </td>
-            </tr>
-            </tfoot>
-        </table>
+        <product-editor v-else :product="product" @save="save" @cancel="$router.back()" />
     </div>
 </template>
 
@@ -42,10 +19,12 @@
     import Wait from "@/components/Wait.vue";
     import Error from "@/components/Error.vue";
     import BackButton from "@/components/BackButton.vue";
-    
+    import ProductEditor from "@/components/ProductEditor.vue";
+        
     @Component({
         name: "product",
         components: {
+            ProductEditor,
             BackButton,
             Wait,
             Error
@@ -115,10 +94,10 @@
                     productApi.upsertProduct(product));
         }
 
+
         /**
          * Displays a loader before calling the asynchronous method
          * and hides it whenever the task is done with it's work.
-         *
          * @param message
          * @param action
          * @private
@@ -166,9 +145,9 @@
         }
     }
 </script>
+
 <style lang="scss" scoped>
     .product {
-
         table {
             input {
                 width: 100%;

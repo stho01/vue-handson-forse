@@ -50,7 +50,7 @@ class ProductApi {
     //********************************************
 
     async upsertProduct(product: IProductDto): Promise<void> {
-        await delay(); // to simulate data transfer over a network.
+        await delay(); // to simulate data transfer over network.
 
         const existingProduct = this._products.find(p => p.id === product.id);
 

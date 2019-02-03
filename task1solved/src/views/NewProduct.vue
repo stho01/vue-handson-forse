@@ -2,37 +2,12 @@
     <div class="new-product">
         <h1>Nytt produkt</h1>
         <wait v-if="saving">Vennligst vent mens produktet lagres...</wait>
-        <table v-else>
-            <tbody>
-            <tr>
-                <th colspan="2">Produkt - {{product.name}}</th>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td><input type="text" v-model="product.name"></td>
-            </tr>
-            <tr>
-                <th>Weight</th>
-                <td><input type="text" v-model.number="product.weight"></td>
-            </tr>
-            </tbody>
-            <tfoot>
-            <tr>
-                <td></td>
-                <td class="button-cell">
-                    <button class="button" type="button" @click.prevent="cancel">Avbryt</button>
-                    <button class="button" type="button" @click.prevent="save">Lagre</button>
-                </td>
-            </tr>
-            </tfoot>
-        </table>
+        <product-editor v-else :product="product" @save="save" @cancel="cancel" />
         <error v-if="errorMessage != null" :message="errorMessage"></error>
     </div>
 </template>
 
 <script lang="ts">
-    "use strict";
-
     import Vue from "vue"
     import Component from "vue-class-component"
     import {IProduct} from "@/domain/product";
@@ -40,10 +15,12 @@
     import {productApi} from "@/api/productApi";
     import Wait from "@/components/Wait.vue";
     import Error from "@/components/Error.vue";
+    import ProductEditor from "@/components/ProductEditor.vue";
 
     @Component({
         name: "new-product",
         components: {
+            ProductEditor,
             Error,
             Wait
         }

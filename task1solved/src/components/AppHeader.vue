@@ -2,7 +2,7 @@
     <div class="app-header">
         <div class="wrapper">
             <router-link :to="{ name: RouteNames.HOME }">
-                <img src="../assets/logo.svg" alt="Forse logo" class="app-header__logo">
+                <img src="@/assets/logo.svg" alt="Forse logo" class="app-header__logo">
             </router-link>
             <nav>
                 <router-link :to="{ name: RouteNames.HOME }" exact title="Forside">Forside</router-link>
