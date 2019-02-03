@@ -79,21 +79,26 @@
          * Save current product state to server.
          */
         async save(): Promise<void> {
-            if (this.product == null) {
-                throw "Ingen produkt er valgt.";
-            }
-
-            const product: IProductDto = this.createProductDto();
-
             await this._load(
                     "Vennligst vent mens produktet lagres...",
-                    productApi.upsertProduct(product));
+                    async () => {
+                        if (this.product == null) {
+                            throw "Ingen produkt er valgt.";
+                        }
+
+                        const product: IProductDto = this.createProductDto();
+                        await productApi.upsertProduct(product);
+                    });
         }
 
         /**
          * Creates a product dto out of the current product.
          */
         protected createProductDto(): IProductDto {
+            if (this.product == null) {
+                throw "Opprettelse av data objekt feilet, produktet er ikke satt..."; // Ugh.. norsk feilmelding :S
+            }
+
             return {
                 id: this.product.id,
                 name: this.product.name,
@@ -109,11 +114,15 @@
          * @param action
          * @private
          */
-        private async _load<T>(message: string, action: Promise<T>): Promise<T|null> {
+        private async _load<T>(message: string, action: Promise<T>| {():Promise<T>}): Promise<T|null> {
             try {
                 this._showLoader(message);
 
-                return await action;
+                if (typeof action === "function") {
+                    return await action();
+                } else {
+                    return await action;
+                }
             } catch (e) {
                 this._showError(e.toString());
                 return null;

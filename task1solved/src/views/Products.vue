@@ -16,7 +16,7 @@
                 <tbody>
                 <tr v-for="product in products" :key="product.id">
                     <td>
-                        <router-link :to="getProductRoute(product.id)">{{product.id}}</router-link>
+                        <router-link :to="productRoute(product.id)">{{product.id}}</router-link>
                     </td>
                     <td>{{product.name}}</td>
                 </tr>
@@ -69,7 +69,7 @@
             this.$router.push({name: RouteNames.NEW_PRODUCT});
         }
 
-        protected getProductRoute(id: number): RawLocation {
+        protected productRoute(id: number): RawLocation {
             return {
                 name: RouteNames.PRODUCT,
                 params: { id: id.toString(10) }
