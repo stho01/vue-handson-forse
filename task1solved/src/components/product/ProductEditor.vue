@@ -41,7 +41,7 @@
 <script lang="ts">
     import Vue from "vue";
     import {Component, Prop} from "vue-property-decorator";
-    import {IProduct} from "@/domain/product";
+    import {IProduct} from "../../domain/product";
 
     @Component
     export default class ProductEditor extends Vue {

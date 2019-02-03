@@ -13,9 +13,9 @@
     import {IProduct} from "@/domain/product";
     import {IProductDto} from "@/dto/product";
     import {productApi} from "@/api/productApi";
-    import Wait from "@/components/Wait.vue";
-    import Error from "@/components/Error.vue";
-    import ProductEditor from "@/components/ProductEditor.vue";
+    import Wait from "@/components/shared/Wait.vue";
+    import Error from "@/components/shared/Error.vue";
+    import ProductEditor from "@/components/product/ProductEditor.vue";
     import {RouteNames} from "@/router";
 
     @Component({

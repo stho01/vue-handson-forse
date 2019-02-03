@@ -16,10 +16,10 @@
     import {productApi} from "@/api/productApi";
     import {IProduct} from "@/domain/product";
     import {IProductDto} from "@/dto/product";
-    import Wait from "@/components/Wait.vue";
-    import Error from "@/components/Error.vue";
-    import BackButton from "@/components/BackButton.vue";
-    import ProductEditor from "@/components/ProductEditor.vue";
+    import Wait from "@/components/shared/Wait.vue";
+    import Error from "@/components/shared/Error.vue";
+    import BackButton from "@/components/shared/BackButton.vue";
+    import ProductEditor from "@/components/product/ProductEditor.vue";
         
     @Component({
         name: "product",
@@ -120,12 +120,15 @@
 
                 if (typeof action === "function") {
                     return await action();
+
                 } else {
                     return await action;
                 }
+
             } catch (e) {
                 this._showError(e.toString());
                 return null;
+
             } finally {
                 this._hideLoader();
             }

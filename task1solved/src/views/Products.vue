@@ -36,7 +36,7 @@
 
     import Vue from "vue";
     import {productApi} from "@/api/productApi";
-    import Wait from "../components/Wait.vue";
+    import Wait from "../components/shared/Wait.vue";
     import Component from "vue-class-component";
     import {IProductName} from "@/domain/product";
     import {RawLocation} from "vue-router";

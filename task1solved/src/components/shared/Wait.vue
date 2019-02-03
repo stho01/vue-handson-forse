@@ -5,7 +5,7 @@
     </div>
 </template>
 <script lang="ts">
-    import Loader from "@/components/Loader.vue";
+    import Loader from "./Loader.vue";
 
     export default {
         name: "wait",
