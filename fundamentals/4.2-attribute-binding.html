@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .red { background: red; }
+    </style>
+</head>
+<body>
+
+<div id="app">
+
+    <!-- Binder et helt object -->
+    <div v-bind="attributes">Box</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+
+    var data = {
+        attributes: {
+            "class": "red",
+            "style": {
+                padding: "20px 40px",
+                border: "1px solid gray",
+                color: "white"
+            },
+            "data-id": "<unique_id>"
+        }
+    };
+
+    new Vue({
+        el: "#app",
+        data,
+        methods: {
+            toggleClassName() {
+                this.cssClass = this.cssClass === "red" ? "blue" : "red"
+            }
+        }
+    })
+
+</script>
+</body>
+</html>
