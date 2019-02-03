@@ -17,6 +17,8 @@
     import Error from "@/components/shared/Error.vue";
     import ProductEditor from "@/components/product/ProductEditor.vue";
     import {RouteNames} from "@/router";
+    import {EventBus} from "@/EventBus";
+    import {NotificationEvents} from "@/components/notification/NotificationEvents";
 
     @Component({
         name: "new-product",
@@ -44,6 +46,9 @@
                 await productApi.upsertProduct(newProduct);
 
                 this.$router.replace({name: RouteNames.PRODUCTS});
+                EventBus.$emit(NotificationEvents.DISPLAY, {
+                    message: `${newProduct.name} lagt til i produktlisten`
+                });
 
             } catch (e) {
                 this.errorMessage = e.toString();

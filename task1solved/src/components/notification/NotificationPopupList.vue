@@ -1,13 +1,11 @@
 <template>
     <div class="notification-popup-list">
         <transition-group name="fade" tag="div">
-
             <notification-popup class="notification-popup"
-                v-for="wrapper in notifications"
+                v-for="wrapper in notificationsReversed"
                 :key="wrapper.id"
                 :notification="wrapper.notification"
                 @click="deleteNotification(notification)" />
-
         </transition-group>
     </div>
 </template>
@@ -33,7 +31,7 @@
 
         //** PROPS
 
-        @Prop({ default: 1500 })
+        @Prop({ default: 2000 })
         displayTime !: number;
 
         //** DATA FIELDS:
