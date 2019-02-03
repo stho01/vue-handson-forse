@@ -83,15 +83,22 @@
                 throw "Ingen produkt er valgt.";
             }
 
-            const product: IProductDto = {
-                id: this.product.id,
-                name: this.product.name,
-                weight: this.product.weight
-            };
+            const product: IProductDto = this.createProductDto();
 
             await this._load(
                     "Vennligst vent mens produktet lagres...",
                     productApi.upsertProduct(product));
+        }
+
+        /**
+         * Creates a product dto out of the current product.
+         */
+        protected createProductDto(): IProductDto {
+            return {
+                id: this.product.id,
+                name: this.product.name,
+                weight: this.product.weight
+            };
         }
 
 

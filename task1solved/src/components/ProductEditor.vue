@@ -7,18 +7,29 @@
         </thead>
         <tbody>
         <tr>
-            <th>Navn</th>
-            <td><input type="text" v-model="product.name"></td>
+            <th>
+                Navn
+            </th>
+            <td>
+                <label>
+                    <input type="text" v-model="product.name">
+                </label>
+            </td>
         </tr>
         <tr>
-            <th>Vekt</th>
-            <td><input type="text" v-model.number="product.weight"></td>
+            <th>
+                Vekt
+            </th>
+            <td>
+                <label>
+                    <input type="text" v-model.number="product.weight">
+                </label>
+            </td>
         </tr>
         </tbody>
         <tfoot>
         <tr>
-            <td></td>
-            <td class="button-cell">
+            <td colspan="2" class="button-cell">
                 <button class="button" type="button" @click="cancel">Avbryt</button>
                 <button class="button" type="button" @click="save">Lagre</button>
             </td>
@@ -26,6 +37,7 @@
         </tfoot>
     </table>
 </template>
+
 <script lang="ts">
     import Vue from "vue";
     import {Component, Prop} from "vue-property-decorator";

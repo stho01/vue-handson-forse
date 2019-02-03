@@ -16,6 +16,7 @@
     import Wait from "@/components/Wait.vue";
     import Error from "@/components/Error.vue";
     import ProductEditor from "@/components/ProductEditor.vue";
+    import {RouteNames} from "@/router";
 
     @Component({
         name: "new-product",
@@ -29,11 +30,7 @@
 
         //** DATA FIELDS
 
-        product: IProduct = {
-            id: "",
-            name: "Nytt produkt",
-            weight: 0
-        };
+        product: IProduct = this.createEmptyProduct();
         saving: boolean = false;
         errorMessage: string | null = null;
 
@@ -43,26 +40,43 @@
             try {
                 this.saving = true;
 
-                const product: IProductDto = {
-                    id: productApi.generateProductId(),
-                    name: this.product.name || "Nytt produkt",
-                    weight: this.product.weight || 0
-                };
+                const newProduct: IProductDto = this.createDto();
+                await productApi.upsertProduct(newProduct);
 
-                await productApi.upsertProduct(product);
+                this.$router.replace({name: RouteNames.PRODUCTS});
 
-                this.$router.replace({name: "products"});
             } catch (e) {
                 this.errorMessage = e.toString();
+
             } finally {
                 this.saving = false;
                 this.errorMessage = null;
+                // Reset product in case of keep-alive usage..
+                this.product = this.createEmptyProduct();
+
             }
+        }
+
+        protected createDto(): IProductDto {
+            return {
+                id: productApi.generateProductId(),
+                name: this.product.name || "Nytt produkt",
+                weight: this.product.weight || 0
+            };
+        }
+
+        protected createEmptyProduct(): IProduct {
+            return {
+                id: "",
+                name: "Nytt produkt",
+                weight: 0
+            };
         }
 
         protected cancel(): void {
             this.$router.back();
         }
+
     }
 </script>
 
