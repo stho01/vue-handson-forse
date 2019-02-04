@@ -7,7 +7,8 @@ export enum RouteNames {
     HOME = "home",
     PRODUCT = "product",
     NEW_PRODUCT = "new-product",
-    PRODUCTS = "products"
+    PRODUCTS = "products",
+    SHOPPING_CART = "shopping-cart"
 }
 
 Vue.use(Router);
@@ -29,6 +30,10 @@ export const router = new Router({
         path: "/product",
         component: () => import("@/views/Products.vue"),
         name: RouteNames.PRODUCTS,
+    }, {
+        path: "/shopping-cart",
+        component: () => import("@/views/ShoppingCart.vue"),
+        name: RouteNames.SHOPPING_CART
     }, {
         path: "/",
         component: () => import("@/views/Home.vue"),
