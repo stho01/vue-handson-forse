@@ -20,9 +20,8 @@
     import Error from "@/components/shared/Error.vue";
     import BackButton from "@/components/shared/BackButton.vue";
     import ProductEditor from "@/components/product/ProductEditor.vue";
-    import {EventBus} from "@/EventBus";
-    import {NotificationEvents} from "@/components/notification/NotificationEvents";
-        
+    import {EventBus, EventBusEvents} from "@/EventBus";
+
     @Component({
         name: "product",
         components: {
@@ -91,7 +90,7 @@
                         const product: IProductDto = this.createProductDto();
                         await productApi.upsertProduct(product);
 
-                        EventBus.$emit(NotificationEvents.DISPLAY, {
+                        EventBus.$emit(EventBusEvents.DISPLAY_NOTIFICATION, {
                             message: `${product.name} (${product.id}) oppdatert`
                         });
                     });

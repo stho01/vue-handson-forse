@@ -17,8 +17,7 @@
     import Error from "@/components/shared/Error.vue";
     import ProductEditor from "@/components/product/ProductEditor.vue";
     import {RouteNames} from "@/router";
-    import {EventBus} from "@/EventBus";
-    import {NotificationEvents} from "@/components/notification/NotificationEvents";
+    import {EventBus, EventBusEvents} from "@/EventBus";
 
     @Component({
         name: "new-product",
@@ -47,7 +46,7 @@
 
                 this.$router.replace({name: RouteNames.PRODUCTS});
 
-                EventBus.$emit(NotificationEvents.DISPLAY, {
+                EventBus.$emit(EventBusEvents.DISPLAY_NOTIFICATION, {
                     message: `${newProduct.name} lagt til i produktlisten`
                 });
 

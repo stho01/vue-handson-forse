@@ -11,6 +11,7 @@
     import AppHeader from "@/components/layout/AppHeader.vue";
     import {Component} from "vue-property-decorator";
     import NotificationPopupList from "@/components/notification/NotificationPopupList.vue";
+    import {shoppingListApi} from "@/api/shoppingListApi";
 
     @Component({
         components: {
@@ -19,6 +20,15 @@
         }
     })
     export default class App extends Vue {
+
+        created(): void {
+
+            shoppingListApi.getShoppingList()
+                .then(list => {
+                    this.$store.shoppingList = list;
+                });
+
+        }
 
     }
 </script>

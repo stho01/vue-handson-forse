@@ -9,9 +9,9 @@ Vue.config.productionTip = false;
 
 Vue.use((Vue: typeof _Vue) => {
   Vue.prototype.RouteNames = RouteNames;
-  Vue.prototype.$store = Store;
 });
 
+Vue.use(Store);
 
 new Vue({
   router,

@@ -1,10 +1,17 @@
-import {IShoppingList} from "../domain/shoppingList";
+import Vue from "vue";
+import _Vue from "vue";
+import {IShoppingList} from "@/domain/shoppingList";
 
-export interface IStore {
-    shoppingList: IShoppingList|null
+export interface IState {
+    shoppingList: IShoppingList | null
 }
 
-export const Store: IStore = {
+const state: IState = {
     shoppingList: null
 };
 
+export function Store(vue: typeof _Vue): void {
+    vue.prototype.$store = new Vue({
+        data: state
+    });
+}

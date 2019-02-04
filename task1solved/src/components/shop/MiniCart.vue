@@ -58,7 +58,7 @@
             background: $color-base;
         }
 
-        &::after {
+        &::before {
             content: "";
             position: absolute;
             top: 50%;
@@ -71,7 +71,7 @@
             transition: 100ms background-color;
         }
 
-        &:hover::after {
+        &:hover::before {
             background-color: rgba(black, .2);
         }
     }

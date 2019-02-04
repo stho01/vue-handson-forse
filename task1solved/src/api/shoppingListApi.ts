@@ -6,7 +6,12 @@ import {IShoppingListDto} from "@/dto/shoppingList";
 
 class ShoppingListApi {
 
-    private shoppingList: IShoppingList = {id: 'ABC123', name: 'Min liste', entries: []};
+    private shoppingList: IShoppingList = {id: 'ABC123', name: 'Min liste', entries: [
+            {
+                product: { id: "ABC123", name: "Name" },
+                amount: 1
+            }
+        ]};
 
     //********************************************
 

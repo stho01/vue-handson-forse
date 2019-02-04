@@ -1,16 +1,23 @@
+import {EventBusEvents} from "../EventBus";
 <template>
     <div class="products">
         <h1>Produkter</h1>
         <wait v-if="loading">Vennligst vent mens produkter laster inn...</wait>
         <div v-else>
             <table>
+                <colgroup>
+                    <col>
+                    <col>
+                    <col width="130px">
+                </colgroup>
                 <thead>
                 <tr>
-                    <th colspan="2">Produkter</th>
+                    <th colspan="3">Produkter</th>
                 </tr>
                 <tr>
                     <th>ID</th>
                     <th>Navn</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -18,11 +25,16 @@
                     <td>
                         <router-link :to="productRoute(product.id)">{{product.id}}</router-link>
                     </td>
-                    <td>{{product.name}}</td>
+                    <td>
+                        {{product.name}}
+                    </td>
+                    <td>
+                        <app-button @click="addToCart(product)">Legg til</app-button>
+                    </td>
                 </tr>
                 <tr>
-                    <td colspan="2">
-                        <button class="button" type="button" @click.prevent="newProduct">Nytt produkt</button>
+                    <td colspan="3">
+                        <app-button @click.prevent="newProduct">Nytt produkt</app-button>
                     </td>
                 </tr>
                 </tbody>
@@ -41,10 +53,15 @@
     import {IProductName} from "@/domain/product";
     import {RawLocation} from "vue-router";
     import {RouteNames} from "@/router";
+    import {shoppingListApi} from "@/api/shoppingListApi";
+    import AppButton from "@/components/shared/AppButton.vue";
+    import {EventBus, EventBusEvents} from "@/EventBus";
+    import {NotificationType} from "@/domain/notification";
 
     @Component({
         name: "products",
         components: {
+            AppButton,
             Wait
         }
     })
@@ -76,6 +93,32 @@
             };
         }
 
+        protected async addToCart(product: IProductName): Promise<void> {
+            if (this.$store.shoppingList == null) {
+                this.$store.shoppingList = await shoppingListApi.getShoppingList();
+            }
+
+            this.$store.shoppingList.entries.push({
+                product: {
+                    id: product.id,
+                    name: product.name
+                },
+                amount: 1 // TODO - Let user choose amount..
+            });
+
+            EventBus.$emit(EventBusEvents.DISPLAY_NOTIFICATION, {
+                message: `${product.name} (${product.id}) lagt til i handlekurv`
+            });
+
+            try {
+                await shoppingListApi.saveShoppingList(this.$store.shoppingList);
+            } catch (e) {
+                EventBus.$emit(EventBusEvents.DISPLAY_NOTIFICATION, {
+                    message: e.toString(),
+                    type: NotificationType.ERROR
+                });
+            }
+        }
     }
 </script>
 

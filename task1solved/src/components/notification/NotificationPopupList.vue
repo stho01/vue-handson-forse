@@ -12,10 +12,9 @@
 <script lang="ts">
     import Vue from "vue";
     import {Component, Prop} from "vue-property-decorator";
-    import {EventBus} from "@/EventBus";
+    import {EventBus, EventBusEvents} from "@/EventBus";
     import INotification from "../../domain/notification";
     import NotificationPopup from "@/components/notification/NotificationPopup.vue";
-    import {NotificationEvents} from "@/components/notification/NotificationEvents";
     import uuidv4 from "@/utils/uuidv4";
 
     interface INotificationWrapper {
@@ -47,11 +46,11 @@
         //** LIFECYCLE HOOKS:
 
         created(): void {
-            EventBus.$on(NotificationEvents.DISPLAY, this.onDisplayNotification.bind(this));
+            EventBus.$on(EventBusEvents.DISPLAY_NOTIFICATION, this.onDisplayNotification.bind(this));
         }
 
         destroyed(): void {
-            EventBus.$off(NotificationEvents.DISPLAY, this.onDisplayNotification.bind(this));
+            EventBus.$off(EventBusEvents.DISPLAY_NOTIFICATION, this.onDisplayNotification.bind(this));
         }
 
         //** METHODS:
