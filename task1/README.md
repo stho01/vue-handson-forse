@@ -2,6 +2,8 @@
  
  ## src\views\Prodcuts.vue
  
- Inhenting av data
+ Inhenting og utlisting av data
  
- ## src\views\Product
+ ## src\views\Product.vue
+ 
+ Redigering av data

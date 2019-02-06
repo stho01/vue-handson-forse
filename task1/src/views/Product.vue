@@ -3,28 +3,70 @@
         <h1>Produkt</h1>
         <wait v-if="loading">{{loadingMessage}}</wait>
         <error v-else-if="product == null">{{errorMessage}}</error>
-        <product-editor v-else :product="product" @save="save" @cancel="$router.back()" />
+        <table v-else>
+            <thead>
+            <tr>
+                <th colspan="2">
+                    Produkt - {{ product.name }}
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th>
+                    Navn
+                </th>
+                <td>
+                    <!-- TODO: Edit product name -->
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Vekt
+                </th>
+                <td>
+                    <!-- TODO: Edit product weight -->
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="2" class="button-cell">
+                    <!-- TODO: Handle cancel and save -->
+                    <app-button>Avbryt</app-button>
+                    <app-button>Lagre</app-button>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
     </div>
 </template>
 
 <script lang="ts">
     "use strict";
 
+    //********************************************
+
     import Vue from "vue";
     import Component from "vue-class-component";
     import {Prop, Watch} from "vue-property-decorator";
-    import {productApi} from "@/api/productApi";
     import {IProduct} from "@/domain/product";
-    import {IProductDto} from "@/dto/product";
     import Wait from "@/components/shared/Wait.vue";
     import Error from "@/components/shared/Error.vue";
     import BackButton from "@/components/shared/BackButton.vue";
     import ProductEditor from "@/components/product/ProductEditor.vue";
+    import AppButton from "@/components/shared/AppButton.vue";
+    import {delay} from "@/api/delay";
+    import {productApi} from "@/api/productApi";
+    import {IProductDto} from "@/dto/product";
     import {EventBus, EventBusEvents} from "@/EventBus";
+
+    //********************************************
 
     @Component({
         name: "product",
         components: {
+            AppButton,
             ProductEditor,
             BackButton,
             Wait,
@@ -35,14 +77,13 @@
 
         //** PROPS
 
-        @Prop()
-        id: string;
+        // TODO: #1 Product ID property.
 
         //** DATA
 
+        product: IProduct | null = null;
         loading: boolean = false;
         loadingMessage: string | null = null;
-        product: IProduct | null = null;
         errorMessage: string = "";
 
         //** LIFECYCLE
@@ -71,44 +112,34 @@
          * @private
          */
         private async _fetchData(): Promise<void> {
-            this.product = await this._load(
-                    "Vennligst vent mens produktet laster inn...",
-                    productApi.getProduct(this.id));
+            this.product = await this._loading(
+                "Vennligst vent mens produktet laster inn...",
+                async () => {
+
+                    // TODO: #2 Fetch product data from api
+                    await delay(1000);
+                    throw "Not implemented...";
+
+                    // noinspection UnreachableCodeJS
+                    return null;
+                }
+            );
         }
 
         /**
          * Save current product state to server.
          */
         async save(): Promise<void> {
-            await this._load(
-                    "Vennligst vent mens produktet lagres...",
-                    async () => {
-                        if (this.product == null) {
-                            throw "Ingen produkt er valgt.";
-                        }
+            await this._loading(
+                "Vennligst vent mens produktet lagres...",
+                async () => {
 
-                        const product: IProductDto = this.createProductDto();
-                        await productApi.upsertProduct(product);
+                    // TODO: #3 Save current product with productApi
 
-                        EventBus.$emit(EventBusEvents.DISPLAY_NOTIFICATION, {
-                            message: `${product.name} (${product.id}) oppdatert`
-                        });
-                    });
-        }
+                    await delay(1000);
 
-        /**
-         * Creates a product dto out of the current product.
-         */
-        protected createProductDto(): IProductDto {
-            if (this.product == null) {
-                throw "Opprettelse av data objekt feilet, produktet er ikke satt..."; // Ugh.. norsk feilmelding :S
-            }
 
-            return {
-                id: this.product.id,
-                name: this.product.name,
-                weight: this.product.weight
-            };
+                });
         }
 
         /**
@@ -118,7 +149,7 @@
          * @param action
          * @private
          */
-        private async _load<T>(message: string, action: Promise<T>| {():Promise<T>}): Promise<T|null> {
+        private async _loading<T>(message: string, action: Promise<T> | { (): Promise<T> }): Promise<T | null> {
             try {
                 this._showLoader(message);
 

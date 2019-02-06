@@ -21,7 +21,8 @@
                 </thead>
                 <tbody>
 
-                <!-- TODO: List ut produkter -->
+                <!--
+                TODO: List ut produkter
                 <tr>
                     <td>
                         Produkt id
@@ -33,6 +34,7 @@
                         <app-button>Legg til</app-button>
                     </td>
                 </tr>
+                -->
 
                 <tr>
                     <td colspan="3">
