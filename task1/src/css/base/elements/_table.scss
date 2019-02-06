@@ -1,0 +1,41 @@
+table {
+    table-layout: fixed;
+    width: 100%;
+    max-width: 500px;
+    border-collapse: collapse;
+    margin: 20px auto;
+    text-align: left;
+
+    thead tr:first-child th {
+        font-size: 18px;
+    }
+
+    th, td {
+        padding: 5px 15px;
+        border: 1px solid #ddd;
+
+        &.button-cell {
+            text-align: right;
+
+            button {
+                display: inline-block;
+                margin: 0 5px;
+                &:first-child {
+                    margin-left: 0
+                }
+                &:last-child {
+                    margin-right: 0
+                }
+            }
+        }
+    }
+
+    input {
+        width: 100%;
+    }
+
+    button {
+        display: block;
+        margin-left: auto;
+    }
+}

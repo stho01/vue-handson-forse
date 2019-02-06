@@ -1,0 +1,13 @@
+@mixin font-regular() {
+    font-family: $font-nunito-sans;
+    font-weight: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+@mixin font-bold() {
+    font-family: $font-nunito-sans;
+    font-weight: bold;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
