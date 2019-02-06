@@ -49,7 +49,6 @@
 
     import Vue from "vue";
     import Component from "vue-class-component";
-    import {Prop, Watch} from "vue-property-decorator";
     import {IProduct} from "@/domain/product";
     import Wait from "@/components/shared/Wait.vue";
     import Error from "@/components/shared/Error.vue";
@@ -57,6 +56,7 @@
     import ProductEditor from "@/components/product/ProductEditor.vue";
     import AppButton from "@/components/shared/AppButton.vue";
     import {delay} from "@/api/delay";
+    import {Prop, Watch} from "vue-property-decorator";
     import {productApi} from "@/api/productApi";
     import {IProductDto} from "@/dto/product";
     import {EventBus, EventBusEvents} from "@/EventBus";
@@ -77,7 +77,7 @@
 
         //** PROPS
 
-        // TODO: #1 Product ID property.
+
 
         //** DATA
 
@@ -92,82 +92,33 @@
          * Called after vue component is created.
          */
         async created(): Promise<void> {
-            await this._fetchData();
-        }
+            this._showLoader("Laster inn produkt...");
 
-        //** WATCH
+            /*
+                1. Sett opp produkt route.
+                2. Sett opp id prop
+                3. Hent produktet fra productApi
+                4.
+             */
 
-        /**
-         * Listen to any route changes and update product data.
-         */
-        @Watch("$route")
-        private async _onRouteChanged(): Promise<void> {
-            await this._fetchData();
-        }
-
-        //** METHODS
-
-        /**
-         * Fetch product data from server and assign to product field.
-         * @private
-         */
-        private async _fetchData(): Promise<void> {
-            this.product = await this._loading(
-                "Vennligst vent mens produktet laster inn...",
-                async () => {
-
-                    // TODO: #2 Fetch product data from api
-                    await delay(1000);
-                    throw "Not implemented...";
-
-                    // noinspection UnreachableCodeJS
-                    return null;
-                }
-            );
+            await delay(1000);
+            this._showError("Not implemented");
         }
 
         /**
          * Save current product state to server.
          */
         async save(): Promise<void> {
-            await this._loading(
-                "Vennligst vent mens produktet lagres...",
-                async () => {
-
-                    // TODO: #3 Save current product with productApi
-
-                    await delay(1000);
-
-
-                });
+            this._showLoader("Vent mens produktet lagres...");
+            await delay(1000);
+            this._showError("Not implemented");
         }
 
-        /**
-         * Displays a loader before calling the asynchronous method
-         * and hides it whenever the task is done with it's work.
-         * @param message
-         * @param action
-         * @private
-         */
-        private async _loading<T>(message: string, action: Promise<T> | { (): Promise<T> }): Promise<T | null> {
-            try {
-                this._showLoader(message);
 
-                if (typeof action === "function") {
-                    return await action();
 
-                } else {
-                    return await action;
-                }
 
-            } catch (e) {
-                this._showError(e.toString());
-                return null;
 
-            } finally {
-                this._hideLoader();
-            }
-        }
+        //** UTILS....
 
         /**
          * Shows the loader to the screen.
