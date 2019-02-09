@@ -8,21 +8,28 @@
 
 <div id="app">
     <my-component />
-    <my-component />
-    <my-component />
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
 
-    Vue.component("my-component", {
-        template: `<div style="color: purple">My Component</div>`
-    });
+    /*
 
-    new Vue({
-        el: "#app"
-    });
+        # Oppgave
 
+        1)  Lag en komponent med navn 'my-component' med Vue.component(name: string, options: {}) metoden.
+
+        NOTE:   En komponent i Vue er også bare en vue instans og deler det samme options-objektet
+                som vi har jobbet med i de tidligere oppgavene.
+
+        2)  Legg til <my-component /> i div#app.
+
+        3)  Vi må enten angi en render funskjon eller en template for at komponenten skal fungere.
+            Legg til template: "<div>My Component</div>" og kjør i nettleser.
+
+     */
+
+    new Vue({ el: "#app" });
 </script>
 
 </body>
