@@ -8,6 +8,12 @@
     import {Component, Prop} from "vue-property-decorator";
     import INotification, {NotificationType} from "@/domain/notification";
 
+    const baseClass: string = "notification-popup";
+    const typeMap: Record<number, string> = {
+        [NotificationType.MESSAGE]: `${baseClass}--message`,
+        [NotificationType.ERROR]: `${baseClass}--error`
+    };
+
     @Component({
         name: "notification-popup"
     })
@@ -18,15 +24,11 @@
         @Prop({required: true})
         notification: INotification;
 
+        //** DATA
+
         //** METHODS:
 
         protected getTypeClass(): string {
-            const baseClass: string = "notification-popup";
-            const typeMap: Record<number, string> = {
-                [NotificationType.MESSAGE]: `${baseClass}--message`,
-                [NotificationType.ERROR]: `${baseClass}--error`
-            };
-
             return typeMap[this.notification.type as number];
         }
     }
@@ -35,13 +37,15 @@
     .notification-popup {
         padding: 10px 30px;
         background: $color-base;
+        color: white;
         border-radius: 3px;
-        font-size: 14px;
+        font-size: 15px;
         width: 300px;
         min-height: 75px;
         display: flex;
         align-items: center;
         justify-content: center;
+        font-weight: bold;
 
 
         &--message {}

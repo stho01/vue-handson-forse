@@ -10,20 +10,28 @@
 <body>
 
 <div id="app">
-    <input type="text" v-model="value"/>
-    <p>VALUE = {{value}}</p>
+
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
+    /*
+        # Oppgave
+
+        1) Lag en ny vue instans og 'mount' instansen til div#app
+
+        2) Legg til en ny 'input[type=text]' tag
+
+        3) Legg til en ny 'p' tag og bruk v-text eller {{}}  til å binde opp 'data.value' egenskapen, Se at det fungerer.
+
+        4) Bruk v-model direktivet på input elementet til å sette opp en 'to veis' binding mellom data.value og input. Se at det fungerer.
+
+     */
+
     var data = {
-        value: ""
+        value: "foo bar baz"
     };
 
-    new Vue({
-        el: "#app",
-        data
-    })
 </script>
 
 </body>

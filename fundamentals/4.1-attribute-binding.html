@@ -9,7 +9,6 @@
         .red {
             background: red;
         }
-
         .blue {
             color: white;
             background: blue;
@@ -20,24 +19,32 @@
 
 <div id="app">
     <div>
-        <button v-on:click="toggleClassName">Switch Color</button>
-        <div v-bind:class="cssClass">Disco</div>
-    </div>
-    <div>
-        eller
-    </div>
-    <div>
         <button @click="toggleClassName">Switch Color</button>
-        <div :class="cssClass">Disco</div>
+        <div class="red">Disco</div>
     </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
+    /*
+        # Oppgave
+
+        NOTE: v-bind direktivet kan brukes til å binde en data egenskap mot et element attributt.
+              v-bind:<attribut-navn>="<data-felt>"
+
+        1)  Bruk v-bind direktivet til å binde opp 'data.cssClass' egenskapen.
+            Se at det fungerer ved å trykke på 'Switch Color' knappen.
+
+        NOTE: v-bind direktivet har også et alias, ':<argument>', feks. :class="<data-felt>"
+
+        2) Sett opp en ny div som bruker aliaset i stedet for v-bind fult ut. Set at det fungerer.
+
+     */
+
 
     var data = {
         cssClass: "red"
-    }
+    };
 
     new Vue({
         el: "#app",

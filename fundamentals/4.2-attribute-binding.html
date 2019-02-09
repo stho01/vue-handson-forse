@@ -13,13 +13,23 @@
 
 <div id="app">
 
-    <!-- Binder et helt object -->
-    <div v-bind="attributes">Box</div>
+    <div>Box</div>
 
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
+
+
+    /*
+        # Oppgave
+
+        NOTE:   v-bind kan brukes uten argument som. v-bind="{object}"
+
+        1) bruk v-bind direktivet til å binde attributes mot div'en.
+
+
+     */
 
     var data = {
         attributes: {
@@ -35,12 +45,7 @@
 
     new Vue({
         el: "#app",
-        data,
-        methods: {
-            toggleClassName() {
-                this.cssClass = this.cssClass === "red" ? "blue" : "red"
-            }
-        }
+        data
     })
 
 </script>

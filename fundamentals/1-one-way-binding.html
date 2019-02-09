@@ -11,30 +11,33 @@
 <body>
 
 <div id="app">
-    <div>
-        <p v-text="name"></p>
-        <p v-text="project"></p>
-    </div>
-    <div>eller</div>
-    <div>
-        <p>{{name}}</p>
-        <p>{{project}}</p>
-    </div>
-    <div v-html="url"></div>
+
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
+    /*
+        # Oppgave
+
+        1)  Instansier en ny Vue instans og 'mount' instansen til div#app
+
+        Pre note: Direktiver er tokens i markup'en som som forteller Vue at noe skal skje med elementet.
+                  Typisk syntax for direkiver er: v-<direktiv-navn>="<data-felt>", feks. v-text="data.value".
+
+        2)  Legg til en ny 'p' tag og bruk v-text direktivet til å binde 'data.name' egenskapen til elementet.
+            Se at det funker
+
+        3)  Legg til en ny 'p' tag og bruk {{}} til å binde 'data.project' egenskapen til elementet. Se at det funker
+
+        4)  Legg til en ny 'div' tag og bruk v-html direktivet til å binde 'data.url' egenskapen til elementet. Se at det funker.
+     */
+
     var data = {
         name: "Forse",
         project: "Vue hands on",
         url: "<a href='https://github.com/stho01/vue-handson-forse'>View on github</a>"
     };
 
-    new Vue({
-        el: "#app",
-        data
-    });
 </script>
 </body>
 

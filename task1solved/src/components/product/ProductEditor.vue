@@ -12,7 +12,7 @@
             </th>
             <td>
                 <label>
-                    <input type="text" v-model="product.name">
+                    <input type="text" v-model="editProduct.name">
                 </label>
             </td>
         </tr>
@@ -22,7 +22,7 @@
             </th>
             <td>
                 <label>
-                    <input type="text" v-model.number="product.weight">
+                    <input type="text" v-model.number="editProduct.weight">
                 </label>
             </td>
         </tr>
@@ -54,16 +54,23 @@
         @Prop({required: true})
         product !: IProduct;
 
+        //** DATA:
+
+        editProduct: IProduct = {
+            id: this.product.id,
+            name: this.product.name,
+            weight: this.product.weight
+        };
+
         //** EVENT HANDLERS:
 
         protected save(event: Event): void {
-            this.$emit("save");
+            this.$emit("save", this.editProduct);
         }
 
         protected cancel(event: Event): void {
             this.$emit("cancel");
         }
-
     }
 </script>
 <style scoped lang="scss">

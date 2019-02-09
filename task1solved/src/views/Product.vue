@@ -1,3 +1,4 @@
+import {EventBusEvents} from "../EventBus";
 <template>
     <div class="product">
         <h1>Produkt</h1>
@@ -79,36 +80,27 @@
         /**
          * Save current product state to server.
          */
-        async save(): Promise<void> {
-            await this._load(
-                    "Vennligst vent mens produktet lagres...",
-                    async () => {
-                        if (this.product == null) {
-                            throw "Ingen produkt er valgt.";
-                        }
+        async save(changedProduct: IProduct): Promise<void> {
+            this._showLoader("Vennligst vent mens produktet lagres...");
 
-                        const product: IProductDto = this.createProductDto();
-                        await productApi.upsertProduct(product);
+            const product: IProductDto = {
+                id: changedProduct.id,
+                name: changedProduct.name,
+                weight: changedProduct.weight
+            };
 
-                        EventBus.$emit(EventBusEvents.DISPLAY_NOTIFICATION, {
-                            message: `${product.name} (${product.id}) oppdatert`
-                        });
-                    });
-        }
+            try {
+                await productApi.upsertProduct(product);
 
-        /**
-         * Creates a product dto out of the current product.
-         */
-        protected createProductDto(): IProductDto {
-            if (this.product == null) {
-                throw "Opprettelse av data objekt feilet, produktet er ikke satt..."; // Ugh.. norsk feilmelding :S
+                EventBus.$emit(EventBusEvents.DISPLAY_NOTIFICATION, {
+                    message: `${product.name} (${product.id}) oppdatert`
+                });
+            } catch (e) {
+                this._showError(e.toString());
+            } finally {
+                this._hideLoader();
             }
 
-            return {
-                id: this.product.id,
-                name: this.product.name,
-                weight: this.product.weight
-            };
         }
 
         /**
