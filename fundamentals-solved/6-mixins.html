@@ -20,88 +20,85 @@
 
 <body>
 
+<section id="app">
+    <div>
+        <button @click="toggleClass">Switch Color</button>
+        <div :class="cssClass" :style="style">Disco</div>
+    </div>
+</section>
+
 <section id="app1">
     <h1>APP #1</h1>
     <div>
-        <button @click="toggleShared">Switch Color</button>
-        <div :class="shared.cssClass">Shared Disco</div>
+        <label for="shared_font_weight1">Font weight</label>
+        <input id="shared_font_weight1" type="text" v-model="style.fontWeight">
+        <label for="shared_font_size1">Font size</label>
+        <input id="shared_font_size1" type="text" v-model="style.fontSize">
     </div>
     <div>
-        <button @click="toggleInternal">Switch Color</button>
-        <div :class="internal.cssClass">Internal Disco</div>
+        <button @click="toggleClass">Switch Color</button>
+        <div :class="cssClass" :style="style">Disco</div>
     </div>
 </section>
 
 <section id="app2">
     <h1>APP #2</h1>
     <div>
-        <button @click="toggleShared">Switch Color</button>
-        <div :class="shared.cssClass">Shared Disco</div>
+        <label for="shared_font_weight2">Font weight</label>
+        <input id="shared_font_weight2" type="text" v-model="style.fontWeight">
+        <label for="shared_font_size2">Font size</label>
+        <input id="shared_font_size2" type="text" v-model="style.fontSize">
     </div>
     <div>
-        <button @click="toggleInternal">Switch Color</button>
-        <div :class="internal.cssClass">Internal Disco</div>
+        <button @click="toggleClass">Switch Color</button>
+        <div :class="cssClass" :style="style">Disco</div>
     </div>
 </section>
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
-    // Shared state..
-    var shared = {
-        cssClass: "red"
-    }
-
-    var myMixin = {
+    var colorClassToggler = {
         data() {
             return {
-                shared
+                cssClass: "red"
             }
         },
         methods: {
-            toggleShared() {
-                this.shared.cssClass = this.toggle(this.shared.cssClass);
-            },
-            toggle(cssClass) {
-                return cssClass === "red" ? "blue" : "red";
+            toggleClass() {
+                this.cssClass = this.cssClass === "red" ? "blue" : "red";
             }
         }
     };
 
-    // Initialize App #1
+    // Style mixin #1
+    var styleMixin = {
+        data() {
+            return {
+                style: {
+                    fontWeight: "bold",
+                    fontSize: "100px"
+                }
+            }
+        }
+    };
+
+
     new Vue({
         el: "#app1",
-        mixins: [myMixin],
-        data() {
-            return {
-                internal: {
-                    cssClass: "red"
-                }
-            }
-        },
-        methods: {
-            toggleInternal() {
-                this.internal.cssClass = this.toggle(this.internal.cssClass);
-            }
-        }
+        mixins: [
+            colorClassToggler,
+            styleMixin
+        ]
     });
 
-    // Initialize App #2
     new Vue({
         el: "#app2",
-        mixins: [myMixin],
-        data() {
-            return {
-                internal: {
-                    cssClass: "red"
-                }
-            }
-        },
-        methods: {
-            toggleInternal() {
-                this.internal.cssClass = this.toggle(this.internal.cssClass);
-            }
-        }
+        mixins: [
+            colorClassToggler,
+            styleMixin
+        ]
     });
+
 </script>
 </body>
 

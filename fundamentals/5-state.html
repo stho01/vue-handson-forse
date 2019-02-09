@@ -20,85 +20,76 @@
 
 <body>
 
+<section id="shared">
+    <label for="shared_font_weight">Font weight</label>
+    <input id="shared_font_weight" type="text" v-model="style.fontWeight">
+    <label for="shared_font_size">Font size</label>
+    <input id="shared_font_size" type="text" v-model="style.fontSize">
+</section>
+
 <section id="app1">
     <h1>APP #1</h1>
     <div>
-        <button @click="toggleShared">Switch Color</button>
-        <div :class="shared.cssClass">Shared Disco</div>
-    </div>
-    <div>
-        <button @click="toggleInternal">Switch Color</button>
-        <div :class="internal.cssClass">Internal Disco</div>
+        <button @click="toggleClass">Switch Color</button>
+        <div :class="cssClass" :style="shared.style">Disco</div>
     </div>
 </section>
 
 <section id="app2">
     <h1>APP #2</h1>
     <div>
-        <button @click="toggleShared">Switch Color</button>
-        <div :class="shared.cssClass">Shared Disco</div>
-    </div>
-    <div>
-        <button @click="toggleInternal">Switch Color</button>
-        <div :class="internal.cssClass">Internal Disco</div>
+        <button @click="toggleClass">Switch Color</button>
+        <div :class="cssClass" :style="shared.style">Disco</div>
     </div>
 </section>
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
 
+    /*
+        # Oppgave
+
+        1)  La createVue metoden ta i mot et argument
+
+        2)  Inkluder argumentet i det returnerte dataobjektet.
+
+        3)  Kall metoden createVue(shared) to ganger og $mount() vue instansene til hver sin section#app1 og section#app2.
+
+        4)  Se om alt funker som det skal.
+            Legg merke til at font-weight og font-size påvirker både #app1 og #app2, mens bakgrunnsfargen
+            er internt for begge.
+
+     */
+
+
+    function createVue(shared) {
+        return new Vue({
+            data() {
+                return {
+                    shared,
+                    cssClass: "red"
+                }
+            },
+            methods: {
+                toggleClass() {
+                    this.cssClass = this.cssClass === "red" ? "blue" : "red";
+                }
+            }
+        });
+    }
+
     // Shared state..
-    var shared = {
-        cssClass: "red"
+    var sharedState = {
+        style: {
+            fontWeight: "bold",
+            fontSize: "100px"
+        }
     };
-
-    // Initialize App #1
     new Vue({
-        el: "#app1",
-        data() {
-            return {
-                shared,
-                internal: {
-                    cssClass: "red"
-                }
-            }
-        },
-        methods: {
-            toggleShared() {
-                this.shared.cssClass = this.toggle(this.shared.cssClass);
-            },
-            toggleInternal() {
-                this.internal.cssClass = this.toggle(this.internal.cssClass);
-            },
-            toggle(cssClass) {
-                return cssClass === "red" ? "blue" : "red";
-            }
-        }
+        el: "#shared",
+        data: sharedState
     });
 
-    // Initialize App #2
-    new Vue({
-        el: "#app2",
-        data() {
-            return {
-                shared,
-                internal: {
-                    cssClass: "red"
-                }
-            }
-        },
-        methods: {
-            toggleShared() {
-                this.shared.cssClass = this.toggle(this.shared.cssClass);
-            },
-            toggleInternal() {
-                this.internal.cssClass = this.toggle(this.internal.cssClass);
-            },
-            toggle(cssClass) {
-                return cssClass === "red" ? "blue" : "red";
-            }
-        }
-    });
 
 </script>
 </body>
