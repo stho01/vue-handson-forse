@@ -11,24 +11,62 @@
 <body>
 
 <div id="app">
-    <button v-on:click="onClick('Button #1', $event)">Click Me</button>
-    <div>eller</div>
-    <button @click="onClick('Button #2', $event)">Click Me</button>
+    <button>Click Me #1</button>
+    <br>
+    <button>Click Me #2</button>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
+    /*
+        # Oppgave
+
+        1)  Legg til en click handler i methods objektet, du kan gi den et hvilket som helst navn,
+
+
+        NOTE:   Noen direktiver kan ta i mot argumenter. Typisk syntax for direktiver med argumenter er:
+                v-<direktiv-navn>:<argument>="<data-felt>", f.eks: v-on:click="handler".
+
+        2)  Bruk 'v-on' direktivet til å sette opp en 'click event' på 'Click Me #1' knappen,
+            denne eventen skal bindes til metoden du satte opp i punkt 1)
+
+
+        3)  Legg til en console.log eller alert i metoden for å se at click handleren trigges.
+
+
+        4)  Lag en ny click handler som tar i mot et argument, feks. 'message'.
+
+
+        5)  Bruk v-on direktivet igjen og bind den nye click handleren, men denne gangen skal det sendes
+            inn en tekst/string til handleren.
+
+
+        NOTE:   Noen direktiver har aliaser/shortcuts, v-on direktivet kan også settes opp med
+                aliaset @<argument>="handler", feks. @click="handler".
+
+        6)  Bytt ut alle steder v-on direktivet er brukt og bruk aliaset @click="handler" istedet.
+
+
+        # Hvis vi rekker:
+
+        NOTE: v-on direktivet er kompatibel med alle native eventer et element har.
+
+        7)  Legg til en input tag, og lag en 'change' handler som trigges hver gang inputen endrer verdi.
+
+
+        NOTE:   v-on uten argument kan også ta i mot et objekt med handlere. Feks:
+                v-on="{
+                    'click': clickHandler,
+                    'mouseover': mouseOverHandler
+                }"
+     */
 
     new Vue({
         el: "#app",
         methods: {
-            onClick(message, event) {
-                alert(message);
-                console.log(event);
-            }
+
         }
     })
-
 </script>
 </body>
 

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .red {
+            background: red;
+        }
+
+        .blue {
+            color: white;
+            background: blue;
+        }
+    </style>
+</head>
+
+<body>
+
+<section id="shared">
+    <label for="shared_font_weight">Font weight</label>
+    <input id="shared_font_weight" type="text" v-model="style.fontWeight">
+    <label for="shared_font_size">Font size</label>
+    <input id="shared_font_size" type="text" v-model="style.fontSize">
+</section>
+
+<section id="app1">
+    <h1>APP #1</h1>
+    <div>
+        <button @click="toggleClass">Switch Color</button>
+        <div :class="cssClass" :style="shared.style">Disco</div>
+    </div>
+</section>
+
+<section id="app2">
+    <h1>APP #2</h1>
+    <div>
+        <button @click="toggleClass">Switch Color</button>
+        <div :class="cssClass" :style="shared.style">Disco</div>
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+
+    function createVue(shared) {
+        return new Vue({
+            data() {
+                return {
+                    shared,
+                    cssClass: "red"
+                }
+            },
+            methods: {
+                toggleClass() {
+                    this.cssClass = this.cssClass === "red" ? "blue" : "red";
+                }
+            }
+        });
+    }
+
+    // Shared state..
+    var shared = {
+        style: {
+            fontWeight: "bold",
+            fontSize: "100px"
+        }
+    };
+
+    var sharedApp = new Vue({ el: "#shared", data: shared });
+    var app1 = createVue(shared);
+    var app2 = createVue(shared);
+
+    app1.$mount("#app1");
+    app2.$mount("#app2");
+
+</script>
+</body>
+
+</html>

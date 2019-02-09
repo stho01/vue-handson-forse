@@ -23,82 +23,90 @@
 <section id="app1">
     <h1>APP #1</h1>
     <div>
-        <button @click="toggleShared">Switch Color</button>
-        <div :class="shared.cssClass">Shared Disco</div>
+        <label for="shared_font_weight1">Font weight</label>
+        <input id="shared_font_weight1" type="text" v-model="style.fontWeight">
+        <label for="shared_font_size1">Font size</label>
+        <input id="shared_font_size1" type="text" v-model="style.fontSize">
+        <button @click="toggleClass">Switch Color</button>
     </div>
     <div>
-        <button @click="toggleInternal">Switch Color</button>
-        <div :class="internal.cssClass">Internal Disco</div>
+        <div :class="cssClass" :style="style">Disco</div>
     </div>
 </section>
 
 <section id="app2">
     <h1>APP #2</h1>
     <div>
-        <button @click="toggleShared">Switch Color</button>
-        <div :class="shared.cssClass">Shared Disco</div>
+        <label for="shared_font_weight2">Font weight</label>
+        <input id="shared_font_weight2" type="text" v-model="style.fontWeight">
+        <label for="shared_font_size2">Font size</label>
+        <input id="shared_font_size2" type="text" v-model="style.fontSize">
+        <button @click="toggleClass">Switch Color</button>
     </div>
     <div>
-        <button @click="toggleInternal">Switch Color</button>
-        <div :class="internal.cssClass">Internal Disco</div>
+        <div :class="cssClass" :style="style">Disco</div>
     </div>
 </section>
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
-    // Shared state..
-    var shared = {
-        cssClass: "red"
-    }
 
-    var myMixin = {
-        data() {
-            return {
-                shared
-            }
-        },
-        methods: {
-            toggleShared() {
-                this.shared.cssClass = this.toggle(this.shared.cssClass);
-            },
-            toggle(cssClass) {
-                return cssClass === "red" ? "blue" : "red";
-            }
-        }
-    };
+    /*
+        # Oppgave
 
-    // Initialize App #1
+        NOTE:   Under har vi to identiske instanser av Vue.
+                Vi kan bruke mixins for dele/arve base funksjonalitet.
+                'mixins' er en egenskap i options objektet til Vue konstruktøren.
+
+        1)  Lag en ny variabel 'myMixin' og tildel et objekt til den.
+
+        2)  Kopier data() metoden fra en av instansene og lim den inn i myMixin variabelen.
+
+        3)  Gjør det samme med 'methods'
+
+        4)  Fjern den gjentagende koden og legg til 'mixins' egenskapen i
+            begge instansene. 'mixins' skal være en array.
+
+        5) Legg til 'myMixin' i mixins arrayen. Se at ting fungerer.
+
+     */
+
     new Vue({
         el: "#app1",
-        mixins: [myMixin],
         data() {
             return {
-                internal: {
-                    cssClass: "red"
+                cssClass: "red",
+                style: {
+                    fontWeight: "bold",
+                    fontSize: "100px"
                 }
             }
         },
         methods: {
-            toggleInternal() {
-                this.internal.cssClass = this.toggle(this.internal.cssClass);
+            toggleClass() {
+                this.cssClass = this.cssClass === "red"
+                    ? "blue"
+                    : "red";
             }
         }
     });
 
-    // Initialize App #2
     new Vue({
         el: "#app2",
-        mixins: [myMixin],
         data() {
             return {
-                internal: {
-                    cssClass: "red"
+                cssClass: "red",
+                style: {
+                    fontWeight: "bold",
+                    fontSize: "100px"
                 }
             }
         },
         methods: {
-            toggleInternal() {
-                this.internal.cssClass = this.toggle(this.internal.cssClass);
+            toggleClass() {
+                this.cssClass = this.cssClass === "red"
+                    ? "blue"
+                    : "red";
             }
         }
     });

@@ -62,10 +62,12 @@
     import {EventBus, EventBusEvents} from "@/EventBus";
     import {NotificationType} from "@/domain/notification";
     import {delay} from "@/api/delay";
+    import Error from "@/components/shared/Error.vue";
 
     @Component({
         name: "products",
         components: {
+            Error,
             AppButton,
             Wait
         }
@@ -74,19 +76,16 @@
 
         //** DATA FIELDS
 
-        loading: boolean = false;
+        loading: boolean = true;
 
         //** LIFECYCLE
 
         async created(): Promise<void> {
-            this.loading = true;
 
-            await delay(1000);
+            // OPPGAVE #1
+            // 1.A). Hent liste med produkter fra productApi og sett listen til en data variabel.
+            // 1.B) Sett opp markup for utlisting av produkter.
 
-            // 1. Hent liste med produkter fra productApi og sett listen til en data variabel.
-            // 2. Sett opp markup for utlisting av produkter.
-
-            this.loading = false
         }
 
         //** METHODS

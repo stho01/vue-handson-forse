@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<div id="app">
+    <div>
+        <p v-text="name"></p>
+        <p v-text="project"></p>
+    </div>
+    <div>eller</div>
+    <div>
+        <p>{{name}}</p>
+        <p>{{project}}</p>
+    </div>
+    <div v-html="url"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    var data = {
+        name: "Forse",
+        project: "Vue hands on",
+        url: "<a href='https://github.com/stho01/vue-handson-forse'>View on github</a>"
+    };
+
+    new Vue({
+        el: "#app",
+        data
+    });
+</script>
+</body>
+
+</html>

@@ -19,15 +19,15 @@ export const router = new Router({
     linkExactActiveClass: "active-exact",
     routes: [{
         name: RouteNames.NEW_PRODUCT,
-        path: "/product/new",
+        path: "/products/new",
         component: () => import("@/views/NewProduct.vue")
     },{
         name: RouteNames.PRODUCT,
-        path: "/product/:id",
+        path: "/products/:id",
         component: () => import("@/views/Product.vue"),
         props: true
     },{
-        path: "/product",
+        path: "/products",
         component: () => import("@/views/Products.vue"),
         name: RouteNames.PRODUCTS,
     }, {

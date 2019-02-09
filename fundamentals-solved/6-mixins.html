@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .red {
+            background: red;
+        }
+
+        .blue {
+            color: white;
+            background: blue;
+        }
+    </style>
+</head>
+
+<body>
+
+<section id="app">
+    <div>
+        <button @click="toggleClass">Switch Color</button>
+        <div :class="cssClass" :style="style">Disco</div>
+    </div>
+</section>
+
+<section id="app1">
+    <h1>APP #1</h1>
+    <div>
+        <label for="shared_font_weight1">Font weight</label>
+        <input id="shared_font_weight1" type="text" v-model="style.fontWeight">
+        <label for="shared_font_size1">Font size</label>
+        <input id="shared_font_size1" type="text" v-model="style.fontSize">
+    </div>
+    <div>
+        <button @click="toggleClass">Switch Color</button>
+        <div :class="cssClass" :style="style">Disco</div>
+    </div>
+</section>
+
+<section id="app2">
+    <h1>APP #2</h1>
+    <div>
+        <label for="shared_font_weight2">Font weight</label>
+        <input id="shared_font_weight2" type="text" v-model="style.fontWeight">
+        <label for="shared_font_size2">Font size</label>
+        <input id="shared_font_size2" type="text" v-model="style.fontSize">
+    </div>
+    <div>
+        <button @click="toggleClass">Switch Color</button>
+        <div :class="cssClass" :style="style">Disco</div>
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    var colorClassToggler = {
+        data() {
+            return {
+                cssClass: "red"
+            }
+        },
+        methods: {
+            toggleClass() {
+                this.cssClass = this.cssClass === "red" ? "blue" : "red";
+            }
+        }
+    };
+
+    // Style mixin #1
+    var styleMixin = {
+        data() {
+            return {
+                style: {
+                    fontWeight: "bold",
+                    fontSize: "100px"
+                }
+            }
+        }
+    };
+
+
+    new Vue({
+        el: "#app1",
+        mixins: [
+            colorClassToggler,
+            styleMixin
+        ]
+    });
+
+    new Vue({
+        el: "#app2",
+        mixins: [
+            colorClassToggler,
+            styleMixin
+        ]
+    });
+
+</script>
+</body>
+
+</html>
