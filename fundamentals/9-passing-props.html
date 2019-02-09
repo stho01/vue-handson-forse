@@ -7,45 +7,34 @@
 <body>
 
 <div id="app">
+
+    <!--
+        NOTE:   props syntax er helt lik attributter.
+    -->
+
     <h2>Foo</h2>
-    <foo message="Foo Component #1" value="10"></foo>
-    <foo message="Foo Component #2" value="20"></foo>
-    <foo message="Foo Component #3" value="30"></foo> <!-- Value blir sendt inn som String -->
-    <foo message="Foo Component #3" :value="30"></foo> <!-- Value blir sendt inn som Number -->
-    <foo :message="'Foo Components #3'" :value="2"></foo>
+    <foo></foo>
 
-    <h2>Bar</h2>
-    <bar message="Component #1" :value="10"></bar>
-    <bar message="Component #2" :value="20" :active="true"></bar>
-    <bar message="Component #2" :value="20" active></bar>
-
-    <!-- Fails: -->
-    <!-- <bar></bar>  -->
-    <!-- <bar message="<Message>" value="1"></bar>  -->
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
 
-    Vue.component("foo", {
-        props: ["message", "value"],
-        template: `<div>{{$props}}</div>`
-    });
+    /*
+        # Oppgave
 
-    Vue.component("bar", {
-        props: {
-            "message": {
-                type: String,
-                required: true
-            },
-            "value": {
-                type: Number
-            },
-            "active": {
-                type: Boolean
-            }
-        },
-        template: `<div style="color: purple">{{$props}}</div>`
+        1)  Legg til egenskapen 'props': [] i options-objektet til 'foo' komponentet.
+
+        2)  I arrayen kan vi deklarere navn på properties komponentet kan bruke.
+            Angi ["message", "value"] til props egenskapen.
+
+        3)  Test 'foo' komponenten.
+
+     */
+
+
+    Vue.component("foo", {
+        template: `<div>{{$props}}</div>`
     });
 
     new Vue({
