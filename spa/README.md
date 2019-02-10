@@ -102,7 +102,7 @@ interface IProduct {
 }
 ```
 
-**A)**  Bruk number modifier på product.weight `v-model` bindinga for å fortelle Vue 
+**A)**  Bruk number modifier på product.weight `v-model` bindingen for å fortelle Vue 
         at dette feltet skal være av typen number.
         
 ## 5) ProductEditor.vue - Data flyt opp og ned fra komponenter
