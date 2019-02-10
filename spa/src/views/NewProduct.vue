@@ -48,7 +48,6 @@
     import {productApi} from "@/api/productApi";
     import Wait from "@/components/shared/Wait.vue";
     import Error from "@/components/shared/Error.vue";
-    import ProductEditor from "@/components/product/ProductEditor.vue";
     import {RouteNames} from "@/router";
     import {EventBus, EventBusEvents} from "@/EventBus";
     import BackButton from "@/components/shared/BackButton.vue";
@@ -58,7 +57,6 @@
     @Component({
         name: "new-product",
         components: {
-            ProductEditor,
             Error,
             Wait,
             BackButton,

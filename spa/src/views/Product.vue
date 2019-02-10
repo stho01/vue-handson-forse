@@ -55,7 +55,6 @@
     import Wait from "@/components/shared/Wait.vue";
     import Error from "@/components/shared/Error.vue";
     import BackButton from "@/components/shared/BackButton.vue";
-    import ProductEditor from "@/components/product/ProductEditor.vue";
     import AppButton from "@/components/shared/AppButton.vue";
     import {delay} from "@/api/delay";
     import {Prop, Watch} from "vue-property-decorator";
@@ -69,7 +68,6 @@
         name: "product",
         components: {
             AppButton,
-            ProductEditor,
             BackButton,
             Wait,
             Error
