@@ -116,7 +116,7 @@ interface IProduct {
         
 **B)**  Lag en ny vue fil: `~\src\components\product\ProductEditor.vue`.
 
-Kopier malen under og lim inn i den nye komponentet. 
+Kopier malen under og lim inn i det nye komponentet. 
 ```
 <template>
     <table></table>
