@@ -33,8 +33,8 @@
         @Prop({ default: 3000 })
         displayTime !: number;
 
-        @Inject("")
-        eventBus !: IEventBus | null = null;
+        @Prop()
+        eventBus !: IEventBus | null;
 
         //** DATA FIELDS:
 

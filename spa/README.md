@@ -133,7 +133,7 @@ Kopier malen under og lim inn i det nye komponentet.
 **C)**  Kopier tabellen i NewProduct.vue og lim den inn i malen til det nye komponentet. Fjern
         v-else direktivet fra table tag'en.
     
-**D)**  Sett opp en `prop` som skal ta i mot et produkt. 
+**D)**  Sett opp en `prop` som tar i mot et produkt. 
 
 **E)**  Legg til en _click handler_ på lagre knappen og bruk `$emit(event: string, ...args:any[])` for å sende ut en 
         "save" event med produktet som er endret. 
@@ -159,3 +159,23 @@ Det hadde vært fint vise notifikasjoner når brukeren gjør noe av betynding, f
 **E)**  Inject EventBus'en til NewProduct.vue og fyr av en DISPLAY_NOTIFICATION event når et nytt 
         produkt er lagd og lagret med `productApi`.   
     
+## 7) Simpel store, handlekurv eksempel. 
+
+A)  Se på `~\src\store\Store.ts`
+
+B)  Se på ~\src\main.ts på linje 14,
+    `Vue.use(<plugin_function>)`.
+    
+C)  Legg til en _click handler_ på _legg til_ knappene i `~\src\views\Products.vue` og legg til 
+    produktet i `$store.shoppingList`.
+
+D)  Åpne fila `~\src\components\shop\MiniCart.vue`,
+    bruk `$store` til å hente antall produkter det er i handlekurven.
+    
+E)  Åpne fila `~\src\views\ShoppingCart.vue`,
+    bruk `$store` til å liste ut alle produkter som er lagt til 
+
+F)  Implementer `removeEntry(entry: IShoppingEntry): Promise<void>` metoden `~\src\views\ShoppingCart.vue`. 
+
+
+
