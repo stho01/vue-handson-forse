@@ -1,8 +1,7 @@
 <template>
     <div class="products">
         <h1>Produkter</h1>
-        <wait v-if="loading">Vennligst vent mens produkter laster inn...</wait>
-        <div v-else>
+        <div>
             <table>
                 <colgroup>
                     <col>
@@ -75,8 +74,6 @@
     export default class Products extends Vue {
 
         //** DATA FIELDS
-
-        loading: boolean = true;
 
         //** LIFECYCLE
 
