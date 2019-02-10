@@ -10,7 +10,7 @@ B) Start opp applikasjonen med denne kommandoen:
 
 > yarn serve
 
-C) Bli kjent med *.vue filen 
+C) Bli kjent med vue filen 
 
 ## 1) Inhenting og utlisting av data 
 
@@ -31,18 +31,76 @@ Resultat:
 | AAA123  | Melk        | Legg til     
 | AAA126  | Brød        | Legg til
 | AAA128  | Ketchup     | Legg til
-|         |             | Nytt produkt 
+| Nytt produkt ||
 
-D)  Det er et problem at det tar mellom lang tid før listen over produktene vises.
+D)  Det er et problem at det tar litt tid før listen over produktene vises.
     Bruk _Wait_ komponenten til å vise en spinner før produktlisten er klar.
 
 E)  Bruk `v-if` direktivet til å vise/skjule _Wait_ komponentet dersom listen er tom.
 
-F)  Wrap produkt id i en `router-link` og pek lenken mot ruten _product_. 
-    _Note: Du kan bruke RouteNames konstantene for å hente opp navn på rutene som finnes._ 
+F)  Legg merke til at den tomme tabellen forstatt er synlig, vi kan skjule den med `v-else`
+    direktivet.
+    
+```
+<wait v-if="conditional"></wait>
+<div v-else></div>
+```
 
-## 2) Redigering av data 
+## 2) router-link
 
-**~\src\views\Product.vue**
+A)  Wrap id feltet i en `router-link` og pek lenken mot ruten _product_. 
+    _Tips: Du kan bruke RouteNames konstantene (~\src\router\index.ts) for å hente opp navn på rutene som finnes._ 
 
-A) 
+Legg merke til at url ikke blir er riktig når man navigerer seg inn på et produkt. 
+I ~\src\router\index.ts ser du oppsettet for alle ruter i prosjeketet. 
+Problemet er at ruten _product_ krever en id for at den skal matche. 
+
+B)  Gå tilbake i _Products.vue_ komponentet og legg til en _id_ parameter på lenken. 
+ 
+```
+<route-link :to={ ..., params: { id: <produkt_id> } }>Id</route-link>
+```
+
+## 3) Redigering av data
+
+A)  Ta i mot id'en ved å sette opp en `prop` i _~\src\views\Product.vue_. 
+    Propertien må ha navnet _id_.
+    
+B)  Bruk id'en til å hente ned produktet fra `productApi` og sett produktet til 
+    _product_ variabelen.
+
+C)  I _Product.vue_ malen: bytt ut {{product.name}} og {{product.weight}} bindings med input 
+    felter. Benytt two-way binding.
+    
+D)  Legg til en _click handler_ på _lagre_ knappen og lagre produktet med `productApi`. 
+
+E)  Legg til en tilbake knapp som navigerer til forrige side.
+    _Tips: kan bruke BackButton.vue_ 
+
+**Ekstra oppgave)**
+
+Dersom produktet med id'en ikke finnes kastes det en exception fra APIet, men bruker vil bare
+en loader som aldri blir borte. 
+Bruk ~\src\components\shared\Error.vue komponentet til å vise feilmelding til bruker dersom produkt med id ikke finnes.
+
+## 4) Kort om v-model modifiers
+
+I forrige oppgave satte vi opp input felter for product.name og product.weight. 
+problemet her er at weight og name er to forskjellige data typer. 
+v-model hånderer alt som strings dersom man gir indikasjon på noe annet.
+    
+```
+interface IProduct {
+    id: string;
+    name: string;
+    weight: number;
+}
+```
+
+A)  Bruk number modifier på product.weight `v-model` bindinga for å fortelle Vue 
+    at dette feltet skal være number.
+    
+## 5) ProductEditor.vue 
+
+
+
