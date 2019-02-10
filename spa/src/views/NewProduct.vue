@@ -81,6 +81,5 @@
         protected cancel(): void {
             this.$router.back();
         }
-
     }
 </script>

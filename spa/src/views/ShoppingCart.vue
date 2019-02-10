@@ -66,6 +66,7 @@ import {EventBusEvents} from "../EventBus";
             }
 
             const removed: IShoppingEntry = this.$store.shoppingList.entries.splice(index, 1)[0];
+
             EventBus.$emit(EventBusEvents.DISPLAY_NOTIFICATION, {
                 message: `${removed.product.name} - (${removed.product.id}) ble fjernet fra listen`
             });
@@ -76,6 +77,7 @@ import {EventBusEvents} from "../EventBus";
                     name: this.$store.shoppingList.name,
                     entries: Array.prototype.slice.apply(this.$store.shoppingList)
                 });
+
             }
             catch (e) {
                 this.$store.shoppingList.entries.push(removed);

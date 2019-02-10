@@ -2,6 +2,7 @@
     <div id="app" class="app">
         <app-header />
         <router-view/>
+
         <notification-popup-list />
     </div>
 </template>
