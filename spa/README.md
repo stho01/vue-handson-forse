@@ -55,7 +55,8 @@ Legg merke til at url ikke blir er riktig når man navigerer seg inn på et prod
 I ~\src\router\index.ts ser du oppsettet for alle ruter i prosjeketet. 
 Problemet er at ruten _product_ krever en id for at den skal matche. 
 
-B)  Gå tilbake i _Products.vue_ komponentet og legg til en _id_ parameter på lenken. 
+B)  Gå tilbake i _Products.vue_ komponentet og legg til en _id_ parameter på lenken og
+    prøv på nytt.
  
 ```
 <route-link :to={ ..., params: { id: <produkt_id> } }>Id</route-link>
@@ -98,9 +99,40 @@ interface IProduct {
 ```
 
 A)  Bruk number modifier på product.weight `v-model` bindinga for å fortelle Vue 
-    at dette feltet skal være number.
+    at dette feltet skal være av typen number.
+
+## 5) ProductEditor.vue - Data flyt opp og ned fra komponenter
+
+A)  I _Products.vue_ er det satt opp en knapp som med teksten _Nytt Produkt_.
+    Legg til en _click handler_ som navigerer brukeren til _NewProduct.vue_ med ruten 
+    `RouteNames.NEW_PRODUCT`. Bruk `$router` APIet.
+        
+    Note: Legg merke til at malen til NewProduct.vue er veldig lik malen vi 
+    satte opp i Product.vue
+        
+B)  Lag en ny fil for komponentet ProductEditor.vue. feks: `~\src\components\product\ProductEditor.vue`
+
+Kopier malen under og lim inn i den nye komponentet. 
+```
+<template>
+    <table></table>
+</template>
+<scripts lang="ts">
+    import Vue from "vue";
+    import {Component} from "vue-property-decorator";
     
-## 5) ProductEditor.vue 
+    @Component
+    export default class ProductEditor extends Vue { }
+</scripts>
+```
 
+C)  Kopier tabellen i NewProduct.vue og lim den inn i malen til det nye komponentet. Fjern
+    v-else direktivet fra table tag'en.
+    
+D)  Sett opp en `prop` som skal ta i mot et produkt. 
 
+E)  Legg til en _click handler_ på lagre knappen og bruk `$emit(event: string, ...args:any[])` for å sende ut en 
+    "save" event med produktet som er endret. 
 
+F)  Bytt ut tabellen i _Product.vue_ og _NewProduct.vue_ med _ProductEditor_ komponentet. 
+    Legg til handlere for save og lagre produktet med `productApi`.

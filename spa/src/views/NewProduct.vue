@@ -1,9 +1,42 @@
 <template>
     <div class="new-product">
         <h1>Nytt produkt</h1>
-        <wait v-if="saving">Vennligst vent mens produktet lagres...</wait>
-        <product-editor v-else :product="product" @save="save" @cancel="cancel" />
-        <error v-if="errorMessage != null" :message="errorMessage"></error>
+        <wait v-if="saving">Vent mens produktet lagres...</wait>
+        <table v-else>
+            <thead>
+            <tr>
+                <th colspan="2">
+                    Produkt - {{ product.name }}
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th>
+                    Navn
+                </th>
+                <td>
+                    <input type="text" v-model="product.name" />
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Vekt
+                </th>
+                <td>
+                    <input type="text" v-model.number="product.weight" />
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="2" class="button-cell">
+                    <back-button />
+                    <app-button @click="save">Lagre</app-button>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
     </div>
 </template>
 
@@ -18,13 +51,18 @@
     import ProductEditor from "@/components/product/ProductEditor.vue";
     import {RouteNames} from "@/router";
     import {EventBus, EventBusEvents} from "@/EventBus";
+    import BackButton from "@/components/shared/BackButton.vue";
+    import AppButton from "@/components/shared/AppButton.vue";
+
 
     @Component({
         name: "new-product",
         components: {
             ProductEditor,
             Error,
-            Wait
+            Wait,
+            BackButton,
+            AppButton
         }
     })
     export default class NewProduct extends Vue {
@@ -33,41 +71,19 @@
 
         product: IProduct = this.createEmptyProduct();
         saving: boolean = false;
-        errorMessage: string | null = null;
 
         //** METHODS
 
-        protected async save(): Promise<void> {
-            try {
-                this.saving = true;
+        async save(): Promise<void> {
+            this.saving = true;
 
-                const newProduct: IProductDto = this.createDto();
-                await productApi.upsertProduct(newProduct);
+            await productApi.upsertProduct({
+                id: this.product.id,
+                name: this.product.name,
+                weight: this.product.weight
+            });
 
-                this.$router.replace({name: RouteNames.PRODUCTS});
-
-                EventBus.$emit(EventBusEvents.DISPLAY_NOTIFICATION, {
-                    message: `${newProduct.name} lagt til i produktlisten`
-                });
-
-            } catch (e) {
-                this.errorMessage = e.toString();
-
-            } finally {
-                this.saving = false;
-                this.errorMessage = null;
-                // Reset product in case of keep-alive usage..
-                this.product = this.createEmptyProduct();
-
-            }
-        }
-
-        protected createDto(): IProductDto {
-            return {
-                id: productApi.generateProductId(),
-                name: this.product.name || "Nytt produkt",
-                weight: this.product.weight || 0
-            };
+            this.saving = false;
         }
 
         protected createEmptyProduct(): IProduct {
@@ -76,10 +92,6 @@
                 name: "Nytt produkt",
                 weight: 0
             };
-        }
-
-        protected cancel(): void {
-            this.$router.back();
         }
     }
 </script>

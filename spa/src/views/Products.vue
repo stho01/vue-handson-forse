@@ -87,9 +87,6 @@
 
         //** METHODS
 
-        protected newProduct(): void {
-            // Redirect user to New Product page.
-        }
 
         protected async addToCart(product: IProductName): Promise<void> {
             // Add product to cart.
