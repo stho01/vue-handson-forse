@@ -1,4 +1,3 @@
-import {EventBusEvents} from "../EventBus";
 <template>
     <div class="shopping-cart">
         <h1>Handleliste</h1>
@@ -22,20 +21,23 @@ import {EventBusEvents} from "../EventBus";
             <tr v-for="entry in shoppingEntries" :key="entry.id">
                 <td>{{entry.product.name}}</td>
                 <td>{{entry.amount}} stk</td>
-                <td><app-button @click="removeEntry(entry)">Fjern</app-button></td>
+                <td>
+                    <app-button @click="removeEntry(entry)">Fjern</app-button>
+                </td>
             </tr>
             </tbody>
         </table>
     </div>
 </template>
 <script lang="ts">
+
     import Vue from "vue";
-    import {Component} from "vue-property-decorator";
+    import {Component, Inject} from "vue-property-decorator";
     import {IShoppingEntry} from "@/domain/shoppingList";
     import AppButton from "@/components/shared/AppButton.vue";
     import {shoppingListApi} from "@/api/shoppingListApi";
-    import {EventBus, EventBusEvents} from "@/EventBus";
     import {NotificationType} from "@/domain/notification";
+    import {EventBusEvents, IEventBus} from "@/EventBus";
 
     @Component({
         name: "shopping-cart",
@@ -43,7 +45,12 @@ import {EventBusEvents} from "../EventBus";
     })
     export default class ShoppingCart extends Vue {
 
-        //** DATA FIELDS:
+        //** INJECTED:
+
+        @Inject("EventBus")
+        eventBus !: IEventBus;
+
+        //** COMPUTED:
 
         get shoppingEntries(): IShoppingEntry[] {
             if (this.$store.shoppingList == null) {
@@ -67,7 +74,7 @@ import {EventBusEvents} from "../EventBus";
 
             const removed: IShoppingEntry = this.$store.shoppingList.entries.splice(index, 1)[0];
 
-            EventBus.$emit(EventBusEvents.DISPLAY_NOTIFICATION, {
+            this.eventBus.$emit(EventBusEvents.DISPLAY_NOTIFICATION, {
                 message: `${removed.product.name} - (${removed.product.id}) ble fjernet fra listen`
             });
 
@@ -78,11 +85,10 @@ import {EventBusEvents} from "../EventBus";
                     entries: Array.prototype.slice.apply(this.$store.shoppingList)
                 });
 
-            }
-            catch (e) {
+            } catch (e) {
                 this.$store.shoppingList.entries.push(removed);
 
-                EventBus.$emit(EventBusEvents.DISPLAY_NOTIFICATION, {
+                this.eventBus.$emit(EventBusEvents.DISPLAY_NOTIFICATION, {
                     message: e.toString(),
                     type: NotificationType.ERROR
                 });
@@ -91,5 +97,6 @@ import {EventBusEvents} from "../EventBus";
     }
 </script>
 <style scoped lang="scss">
-    .shopping-cart {}
+    .shopping-cart {
+    }
 </style>

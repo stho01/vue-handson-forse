@@ -60,7 +60,6 @@
     import {Prop, Watch} from "vue-property-decorator";
     import {productApi} from "@/api/productApi";
     import {IProductDto} from "@/dto/product";
-    import {EventBus, EventBusEvents} from "@/EventBus";
 
     //********************************************
 

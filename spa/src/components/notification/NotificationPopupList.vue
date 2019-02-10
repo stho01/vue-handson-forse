@@ -11,8 +11,8 @@
 </template>
 <script lang="ts">
     import Vue from "vue";
-    import {Component, Prop} from "vue-property-decorator";
-    import {EventBus, EventBusEvents} from "@/EventBus";
+    import {Component, Inject, Prop} from "vue-property-decorator";
+    import {IEventBus, EventBusEvents} from "@/EventBus";
     import INotification from "../../domain/notification";
     import NotificationPopup from "@/components/notification/NotificationPopup.vue";
     import uuidv4 from "@/utils/uuidv4";
@@ -33,6 +33,9 @@
         @Prop({ default: 3000 })
         displayTime !: number;
 
+        @Inject("")
+        eventBus !: IEventBus | null = null;
+
         //** DATA FIELDS:
 
         notifications: INotificationWrapper[] = [];
@@ -46,11 +49,15 @@
         //** LIFECYCLE HOOKS:
 
         created(): void {
-            EventBus.$on(EventBusEvents.DISPLAY_NOTIFICATION, this.onDisplayNotification.bind(this));
+            if (this.eventBus != null) {
+                this.eventBus.$on(EventBusEvents.DISPLAY_NOTIFICATION, this.onDisplayNotification.bind(this));
+            }
         }
 
         destroyed(): void {
-            EventBus.$off(EventBusEvents.DISPLAY_NOTIFICATION, this.onDisplayNotification.bind(this));
+            if (this.eventBus != null) {
+                this.eventBus.$off(EventBusEvents.DISPLAY_NOTIFICATION, this.onDisplayNotification.bind(this));
+            }
         }
 
         //** METHODS:

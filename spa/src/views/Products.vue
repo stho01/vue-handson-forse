@@ -58,7 +58,6 @@
     import {RawLocation} from "vue-router";
     import {RouteNames} from "@/router";
     import {shoppingListApi} from "@/api/shoppingListApi";
-    import {EventBus, EventBusEvents} from "@/EventBus";
     import {NotificationType} from "@/domain/notification";
     import {delay} from "@/api/delay";
     import Error from "@/components/shared/Error.vue";

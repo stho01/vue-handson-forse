@@ -12,6 +12,12 @@ B) Start opp applikasjonen med denne kommandoen:
 
 C) Bli kjent med vue filen 
 
+```html
+<template></template>
+<script></script>
+<style scoped><style>
+```
+
 ## 1) Inhenting og utlisting av data 
 
 **~\src\views\Products.vue**
@@ -86,9 +92,9 @@ Bruk ~\src\components\shared\Error.vue komponentet til å vise feilmelding til b
 
 ## 4) Kort om v-model modifiers
 
-I forrige oppgave satte vi opp input felter for product.name og product.weight. 
-problemet her er at weight og name er to forskjellige data typer. 
-v-model hånderer alt som strings dersom man gir indikasjon på noe annet.
+I forrige oppgave satte vi opp input felter for _product.name_ og _product.weight_.
+problemet er kanskje litt usynlig, men weight er satt opp til å være data typen `number`.  
+v-model hånderer alt som strings dersom man ikke gir indikasjon på noe annet.
     
 ```
 interface IProduct {
@@ -100,7 +106,6 @@ interface IProduct {
 
 A)  Bruk number modifier på product.weight `v-model` bindinga for å fortelle Vue 
     at dette feltet skal være av typen number.
-
 ## 5) ProductEditor.vue - Data flyt opp og ned fra komponenter
 
 A)  I _Products.vue_ er det satt opp en knapp som med teksten _Nytt Produkt_.
@@ -136,3 +141,22 @@ E)  Legg til en _click handler_ på lagre knappen og bruk `$emit(event: string, 
 
 F)  Bytt ut tabellen i _Product.vue_ og _NewProduct.vue_ med _ProductEditor_ komponentet. 
     Legg til handlere for save og lagre produktet med `productApi`.
+    
+## 6) Eventer på tvers av komponenter
+
+Det hadde vært fint vise notifikasjoner når brukeren gjør noe av betynding, feks lagrer et produkt. 
+
+A)  Sjekk ut `IEventBus` interfacet i _~\src\EventBus.ts_.
+
+B)  Instansier en ny Vue instans i filen IEventBus.ts og eksporter en konstant EventBus av type IEventBus.
+
+C)  Bruk provide/inject for å eksponere EventBus'en ned til under komponenter av App.vue.
+    Bruk `@Provide(key: string)` dekoratoren for å eksponere instansen til EventBus'en ned 
+    til under komponenter.
+    
+D)  I `~\src\components\notification\NotificationPopupList.vue` bytt ut `@Prop` dekoratoren med 
+    `@Inject(key: string)`.
+    
+E)  Inject EventBus'en til NewProduct.vue og fyr av en DISPLAY_NOTIFICATION event når et nytt 
+    produkt er lagd og lagret med `productApi`.   
+    

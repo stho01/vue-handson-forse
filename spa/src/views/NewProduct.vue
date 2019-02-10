@@ -49,7 +49,6 @@
     import Wait from "@/components/shared/Wait.vue";
     import Error from "@/components/shared/Error.vue";
     import {RouteNames} from "@/router";
-    import {EventBus, EventBusEvents} from "@/EventBus";
     import BackButton from "@/components/shared/BackButton.vue";
     import AppButton from "@/components/shared/AppButton.vue";
 
