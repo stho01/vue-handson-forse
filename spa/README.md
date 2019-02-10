@@ -28,7 +28,7 @@ C) Bli kjent med vue filen
 **B)**  I template seksjonen, bruk `v-for` direktivet til å liste ut 
         Id og Navn til produktene i `table` elementet.
 
-Resultat:
+Resultatet bør bli noe alá dette:
 
 | ID      | Navn        | *           
 |:--------|:-----------:|----------   
@@ -161,21 +161,18 @@ Det hadde vært fint vise notifikasjoner når brukeren gjør noe av betynding, f
     
 ## 7) Simpel store, handlekurv eksempel. 
 
-A)  Se på `~\src\store\Store.ts`
+**A)**  Se på `~\src\store\Store.ts`
 
-B)  Se på ~\src\main.ts på linje 14,
-    `Vue.use(<plugin_function>)`.
+**B)**  Se på ~\src\main.ts på linje 14,
+        `Vue.use(<plugin_function>)`.
     
-C)  Legg til en _click handler_ på _legg til_ knappene i `~\src\views\Products.vue` og legg til 
-    produktet i `$store.shoppingList`.
+**C)**  Legg til en _click handler_ på _legg til_ knappene i `~\src\views\Products.vue` og legg til 
+        produktet i `$store.shoppingList`.
 
-D)  Åpne fila `~\src\components\shop\MiniCart.vue`,
-    bruk `$store` til å hente antall produkter det er i handlekurven.
+**D)**  Åpne fila `~\src\components\shop\MiniCart.vue`,
+        bruk `$store` til å hente antall produkter det er i handlekurven.
     
-E)  Åpne fila `~\src\views\ShoppingCart.vue`,
-    bruk `$store` til å liste ut alle produkter som er lagt til 
+**E)**  Åpne fila `~\src\views\ShoppingCart.vue`,
+        bruk `$store` til å liste ut alle produkter som er lagt til 
 
-F)  Implementer `removeEntry(entry: IShoppingEntry): Promise<void>` metoden `~\src\views\ShoppingCart.vue`. 
-
-
-
+**F)**  Implementer `removeEntry(entry: IShoppingEntry): Promise<void>` metoden `~\src\views\ShoppingCart.vue`. 
