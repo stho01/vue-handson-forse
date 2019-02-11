@@ -1,4 +1,3 @@
-import Vue from "vue";
 import INotification from "@/domain/notification";
 
 export enum EventBusEvents {
@@ -22,5 +21,3 @@ export interface IEventBus {
     $emit(event: EventBusEvents.DISPLAY_NOTIFICATION, notification: INotification): this;
     $emit(event: EventBusEvents, ...args: any[]): this;
 }
-
-export const EventBus: IEventBus = new Vue();
