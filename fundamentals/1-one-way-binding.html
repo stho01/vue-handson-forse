@@ -17,19 +17,24 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
     /*
+
         # Oppgave
 
         1)  Instansier en ny Vue instans og 'mount' instansen til div#app ved å inkludere 'el': <selector> egenskapen
 
-        Pre note: Direktiver er tokens i markup'en som som forteller Vue at noe skal skje med elementet.
+        2)  Inluderer dataobjektet 'data' i vue options.
+
+        3)  Legg til en ny "paragraph" tag og bruk direktivet v-text til å binde 'name' egenskapen til elementet. (Fungerer det?)
+
+        Note: Direktiver er tokens i markup'en som som forteller Vue at noe skal skje med elementet.
                   Typisk syntax for direkiver er: v-<direktiv-navn>="<data-felt>", feks. v-text="data.value".
 
-        2)  Legg til en ny 'p' tag og bruk v-text direktivet til å binde 'data.name' egenskapen til elementet.
-            Se at det funker
+        4)  Legg til en ny 'p' tag og bruk {{}} til å binde 'project' egenskapen til elementet. Se at det funker
 
-        3)  Legg til en ny 'p' tag og bruk {{}} til å binde 'data.project' egenskapen til elementet. Se at det funker
+        Note: {{}} a.k.a mustache syntax er nok den mest brukte formen for string interpolation i vue.
 
-        4)  Legg til en ny 'div' tag og bruk v-html direktivet til å binde 'data.url' egenskapen til elementet. Se at det funker.
+        5)  Legg til en ny 'div' tag og bruk v-html direktivet til å binde 'url' egenskapen til elementet. Se at det funker.
+
      */
 
     var data = {
