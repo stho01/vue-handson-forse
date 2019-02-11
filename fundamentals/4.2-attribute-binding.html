@@ -11,25 +11,18 @@
 </head>
 <body>
 
-<div id="app">
-
-    <div>Box</div>
-
-</div>
-
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
+/*
+    # Oppgave
 
+    1) Sett opp en vue instans som bruker dataobjektet nedenfor.
 
-    /*
-        # Oppgave
+    2) Sett opp en malen #app>div>{box} og bind vue instansen
 
-        NOTE:   v-bind kan brukes uten argument som. v-bind="{object}"
+    3) Bind attributtene i data.attributes på box-div'en
 
-        1) bruk v-bind direktivet til å binde attributes mot div'en.
-
-
-     */
+ */
 
     var data = {
         attributes: {
@@ -42,11 +35,6 @@
             "data-id": "<unique_id>"
         }
     };
-
-    new Vue({
-        el: "#app",
-        data
-    })
 
 </script>
 </body>

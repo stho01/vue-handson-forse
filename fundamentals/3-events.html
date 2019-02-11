@@ -11,9 +11,9 @@
 <body>
 
 <div id="app">
-    <button>Click Me #1</button>
+    <button id="btn1">Click Me #1</button>
     <br>
-    <button>Click Me #2</button>
+    <button id="btn2">Click Me #2</button>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -21,52 +21,65 @@
     /*
         # Oppgave
 
-        1)  Legg til en click handler i methods objektet, du kan gi den et hvilket som helst navn,
+        1)  Sett opp en vue instans og 'mount' den til div#app.
 
+
+        2)  Vue instansen har en option egenskap som heter 'methods'.
+            Den brukes for å sette opp funksjoner som kan brukes i vue konteksten.
+            Legg til en metode i methods og kall den feks. clicked() legg til et 'alert'-kall i funksjonskroppen.
+
+
+        3)  Bruk 'v-on' direktivet med argumentet 'click' til å sette opp en 'click event' på button#btn1,
+            bruk metoden i punkt 2) som handler.
 
         NOTE:   Noen direktiver kan ta i mot argumenter. Typisk syntax for direktiver med argumenter er:
                 v-<direktiv-navn>:<argument>="<data-felt>", f.eks: v-on:click="handler".
 
-        2)  Bruk 'v-on' direktivet til å sette opp en 'click event' på 'Click Me #1' knappen,
-            denne eventen skal bindes til metoden du satte opp i punkt 1)
+
+        3.5000k)
+            Eventer på native html elementer fungerer på samme måte som native eventer.
+            Legg til et 'event' argument i metoden som du opprettet i punkt 2) og log ut target, <button ...> burde logges ut:-)
 
 
-        3)  Legg til en console.log eller alert i metoden for å se at click handleren trigges.
+        4)  Lag en ny metode som tar i mot et argument, feks. 'message'. Log ut 'message' argumentet til console.
 
 
-        4)  Lag en ny click handler som tar i mot et argument, feks. 'message'.
+        5)  Bruk v-on direktivet igjen og bind den nye metoden. Send inn en vilkårlig tekst og se at den printes ut til
+            console.
 
 
-        5)  Bruk v-on direktivet igjen og bind den nye click handleren, men denne gangen skal det sendes
-            inn en tekst/string til handleren.
+        6)  Problem, i metoden fra punkt 5) har vi ikke lenger 'event' argumentet. Legg til et nytt argument i metoden,
+            kall den gjerne 'event'. logg ut 'event' argumentet til console.
 
+
+        7)  undefined? For å sende med event objektet må den manuelt ble sendt med i metoden.
+            Legg til $event til metodekallet i v-on.
+
+
+        8)  Bytt ut alle steder v-on direktivet er brukt og bruk aliaset @click="handler" istedet.
 
         NOTE:   Noen direktiver har aliaser/shortcuts, v-on direktivet kan også settes opp med
                 aliaset @<argument>="handler", feks. @click="handler".
 
-        6)  Bytt ut alle steder v-on direktivet er brukt og bruk aliaset @click="handler" istedet.
+                '@' aliaset er nok den mest vanlige måten å sette opp eventer på i Vue.
 
-
-        # Hvis vi rekker:
 
         NOTE: v-on direktivet er kompatibel med alle native eventer et element har.
 
-        7)  Legg til en input tag, og lag en 'change' handler som trigges hver gang inputen endrer verdi.
 
+        9)  Legg til et tekstfelt og sett opp en change event.
 
-        NOTE:   v-on uten argument kan også ta i mot et objekt med handlere. Feks:
-                v-on="{
-                    'click': clickHandler,
-                    'mouseover': mouseOverHandler
-                }"
-     */
+        NOTE:   Det er mulig å binde flere handlere med v-on="{ 'event': handler }".
+                f.eks:
+                    v-on="{
+                        'click': clickHandler,
+                        'mouseover': mouseOverHandler
+                    }"
+                eller
+                <button @click="handler" @mouseover="handler" />
 
-    new Vue({
-        el: "#app",
-        methods: {
+    */
 
-        }
-    })
 </script>
 </body>
 

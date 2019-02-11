@@ -17,44 +17,31 @@
 </head>
 <body>
 
-<div id="app">
-    <div>
-        <button @click="toggleClassName">Switch Color</button>
-        <div class="red">Disco</div>
-    </div>
-</div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
-    /*
-        # Oppgave
+/*
+    # Oppgave
 
-        NOTE: v-bind direktivet kan brukes til å binde en data egenskap mot et element attributt.
-              v-bind:<attribut-navn>="<data-felt>"
+    1) Sett opp en vue instans som har:
+        * Et dataobjekt med en egenskap 'cssClass' gi den verdien "red".
+        * En toggle metode som bytter mellom teksten "red" og "blue".
 
-        1)  Bruk v-bind direktivet til å binde opp 'data.cssClass' egenskapen.
-            Se at det fungerer ved å trykke på 'Switch Color' knappen.
+    2) Sett opp malen og bind den til vue instansen, malen skal ha:
+        * En knapp som trigger toggle metoden når den klikkes.
+        * En div med teksten "Disco" inni.
+
+    3)  Bruk v-bind direktivet til å binde opp 'data.cssClass' egenskapen.
+        Se at det fungerer ved å trykke på 'Switch Color' knappen.
+
+        NOTE:   v-bind direktivet kan brukes til å binde en data egenskap mot et element attributt.
+                v-bind:<attribut-navn>="<data-felt>"
+
+    4)  Sett opp en ny div som bruker aliaset i stedet for v-bind fult ut. Set at det fungerer.
 
         NOTE: v-bind direktivet har også et alias, ':<argument>', feks. :class="<data-felt>"
-
-        2) Sett opp en ny div som bruker aliaset i stedet for v-bind fult ut. Set at det fungerer.
-
-     */
-
-
-    var data = {
-        cssClass: "red"
-    };
-
-    new Vue({
-        el: "#app",
-        data,
-        methods: {
-            toggleClassName() {
-                this.cssClass = this.cssClass === "red" ? "blue" : "red"
-            }
-        }
-    })
+ */
 
 </script>
 </body>

@@ -55,19 +55,18 @@
         # Oppgave
 
         NOTE:   Under har vi to identiske instanser av Vue.
-                Vi kan bruke mixins for dele/arve base funksjonalitet.
+                Vi kan bruke mixins for dele/arve funksjonalitet.
                 'mixins' er en egenskap i options objektet til Vue konstruktøren.
 
-        1)  Lag en ny variabel 'myMixin' og tildel et objekt til den.
 
-        2)  Kopier data() metoden fra en av instansene og lim den inn i myMixin variabelen.
+        1)  Flytt gjenntagende kode over i et eget options-objekt.
 
-        3)  Gjør det samme med 'methods'
+        2)  Fjern all gjenntagende kode og bruk objektet som en mixin i Vue instansene #app1 og #app2.
 
-        4)  Fjern den gjentagende koden og legg til 'mixins' egenskapen i
-            begge instansene. 'mixins' skal være en array.
+        3)  Splitt opp mixin objektet du akkurat lagde.
+            Kode for font stilen skal inn i sitt eget objekt og cssClass koden skal i et eget objekt.
 
-        5) Legg til 'myMixin' i mixins arrayen. Se at ting fungerer.
+        4)  Legg begge mixins i #app1 og #app2.
 
      */
 

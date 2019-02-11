@@ -20,18 +20,22 @@
 
 <body>
 
-<section id="shared">
-    <label for="shared_font_weight">Font weight</label>
-    <input id="shared_font_weight" type="text" v-model="style.fontWeight">
-    <label for="shared_font_size">Font size</label>
-    <input id="shared_font_size" type="text" v-model="style.fontSize">
+<section id="fontStylePanel">
+    <label>
+        Font weight
+        <input type="text" v-model="style.fontWeight">
+    </label>
+    <label>
+        Font size
+        <input type="text" v-model="style.fontSize">
+    </label>
 </section>
 
 <section id="app1">
     <h1>APP #1</h1>
     <div>
         <button @click="toggleClass">Switch Color</button>
-        <div :class="cssClass" :style="shared.style">Disco</div>
+        <div :class="cssClass">Disco</div>
     </div>
 </section>
 
@@ -39,7 +43,7 @@
     <h1>APP #2</h1>
     <div>
         <button @click="toggleClass">Switch Color</button>
-        <div :class="cssClass" :style="shared.style">Disco</div>
+        <div :class="cssClass">Disco</div>
     </div>
 </section>
 
@@ -49,24 +53,20 @@
     /*
         # Oppgave
 
-        1)  La createVue metoden ta i mot et argument
+        1)  Bruk createVue metoden til å instansiere to vue instanser.
+            mount hver av de til hver sin div#app, bruk $mount metoden.
 
-        2)  Inkluder argumentet i det returnerte dataobjektet.
+        2)  Inkluder fontStyle state'en i #app1 og #app2 vue instansene.
 
-        3)  Kall metoden createVue(shared) to ganger og $mount() vue instansene til hver sin section#app1 og section#app2.
-
-        4)  Se om alt funker som det skal.
-            Legg merke til at font-weight og font-size påvirker både #app1 og #app2, mens bakgrunnsfargen
-            er internt for begge.
+        3)  Fiks malen slik at font stilen påvirker teksten "Disco"
 
      */
 
 
-    function createVue(shared) {
+    function createVue() {
         return new Vue({
             data() {
                 return {
-                    shared,
                     cssClass: "red"
                 }
             },
@@ -79,17 +79,17 @@
     }
 
     // Shared state..
-    var sharedState = {
+    var fontStyle = {
         style: {
             fontWeight: "bold",
             fontSize: "100px"
         }
     };
-    new Vue({
-        el: "#shared",
-        data: sharedState
-    });
 
+    new Vue({
+        el: "#fontStylePanel",
+        data: fontStyle
+    });
 
 </script>
 </body>
