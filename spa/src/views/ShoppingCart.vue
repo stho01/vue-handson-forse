@@ -1,4 +1,3 @@
-import {EventBusEvents} from "../EventBus";
 <template>
     <div class="shopping-cart">
         <h1>Handleliste</h1>
@@ -22,20 +21,23 @@ import {EventBusEvents} from "../EventBus";
             <tr v-for="entry in shoppingEntries" :key="entry.id">
                 <td>{{entry.product.name}}</td>
                 <td>{{entry.amount}} stk</td>
-                <td><app-button @click="removeEntry(entry)">Fjern</app-button></td>
+                <td>
+                    <app-button @click="removeEntry(entry)">Fjern</app-button>
+                </td>
             </tr>
             </tbody>
         </table>
     </div>
 </template>
 <script lang="ts">
+
     import Vue from "vue";
-    import {Component} from "vue-property-decorator";
+    import {Component, Inject, Prop} from "vue-property-decorator";
     import {IShoppingEntry} from "@/domain/shoppingList";
     import AppButton from "@/components/shared/AppButton.vue";
     import {shoppingListApi} from "@/api/shoppingListApi";
-    import {EventBus, EventBusEvents} from "@/EventBus";
-    import {NotificationType} from "@/domain/notification";
+    import INotification, {NotificationType} from "@/domain/notification";
+    import {EventBusEvents, IEventBus} from "@/EventBus";
 
     @Component({
         name: "shopping-cart",
@@ -43,51 +45,34 @@ import {EventBusEvents} from "../EventBus";
     })
     export default class ShoppingCart extends Vue {
 
-        //** DATA FIELDS:
+
+        @Prop() // TODO: Inject event bus!
+        eventBus !: IEventBus | null;
+
+        //** COMPUTED:
 
         get shoppingEntries(): IShoppingEntry[] {
-            if (this.$store.shoppingList == null) {
-                return [];
-            } else {
-                return this.$store.shoppingList.entries;
-            }
+            // TODO: return shopping entries
+            return [];
         }
 
         //** METHODS:
 
         async removeEntry(entry: IShoppingEntry): Promise<void> {
-            if (this.$store.shoppingList == null) {
-                this.$store.shoppingList = await shoppingListApi.getShoppingList();
-            }
+            // TODO: Remove entry.
+            alert("Implement me!");
+        }
 
-            const index: number = this.$store.shoppingList.entries.indexOf(entry);
-            if (index === -1) {
-                return;
-            }
-
-            const removed: IShoppingEntry = this.$store.shoppingList.entries.splice(index, 1)[0];
-            EventBus.$emit(EventBusEvents.DISPLAY_NOTIFICATION, {
-                message: `${removed.product.name} - (${removed.product.id}) ble fjernet fra listen`
-            });
-
-            try {
-                await shoppingListApi.saveShoppingList({
-                    id: this.$store.shoppingList.id,
-                    name: this.$store.shoppingList.name,
-                    entries: Array.prototype.slice.apply(this.$store.shoppingList)
-                });
-            }
-            catch (e) {
-                this.$store.shoppingList.entries.push(removed);
-
-                EventBus.$emit(EventBusEvents.DISPLAY_NOTIFICATION, {
-                    message: e.toString(),
-                    type: NotificationType.ERROR
-                });
+        private _notifyIfEventBusIsSet(notification: INotification | string): void {
+            if (this.eventBus != null) {
+                if (typeof notification === "string") {
+                    this.eventBus.$emit(EventBusEvents.DISPLAY_NOTIFICATION, {
+                        message: notification
+                    });
+                } else {
+                    this.eventBus.$emit(EventBusEvents.DISPLAY_NOTIFICATION, notification);
+                }
             }
         }
     }
 </script>
-<style scoped lang="scss">
-    .shopping-cart {}
-</style>

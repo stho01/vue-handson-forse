@@ -1,8 +1,7 @@
 <template>
     <div class="products">
         <h1>Produkter</h1>
-        <wait v-if="loading">Vennligst vent mens produkter laster inn...</wait>
-        <div v-else>
+        <div>
             <table>
                 <colgroup>
                     <col>
@@ -59,7 +58,6 @@
     import {RawLocation} from "vue-router";
     import {RouteNames} from "@/router";
     import {shoppingListApi} from "@/api/shoppingListApi";
-    import {EventBus, EventBusEvents} from "@/EventBus";
     import {NotificationType} from "@/domain/notification";
     import {delay} from "@/api/delay";
     import Error from "@/components/shared/Error.vue";
@@ -76,8 +74,6 @@
 
         //** DATA FIELDS
 
-        loading: boolean = true;
-
         //** LIFECYCLE
 
         async created(): Promise<void> {
@@ -90,9 +86,6 @@
 
         //** METHODS
 
-        protected newProduct(): void {
-            // Redirect user to New Product page.
-        }
 
         protected async addToCart(product: IProductName): Promise<void> {
             // Add product to cart.

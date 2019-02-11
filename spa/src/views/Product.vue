@@ -18,6 +18,7 @@
                 </th>
                 <td>
                     <!-- TODO: Edit product name -->
+                    {{product.name}}
                 </td>
             </tr>
             <tr>
@@ -26,14 +27,15 @@
                 </th>
                 <td>
                     <!-- TODO: Edit product weight -->
+                    {{product.weight}}
                 </td>
             </tr>
             </tbody>
             <tfoot>
             <tr>
                 <td colspan="2" class="button-cell">
-                    <!-- TODO: Handle cancel and save -->
-                    <app-button>Avbryt</app-button>
+                    <!-- TODO: Handle back and save -->
+                    <back-button />
                     <app-button>Lagre</app-button>
                 </td>
             </tr>
@@ -53,13 +55,11 @@
     import Wait from "@/components/shared/Wait.vue";
     import Error from "@/components/shared/Error.vue";
     import BackButton from "@/components/shared/BackButton.vue";
-    import ProductEditor from "@/components/product/ProductEditor.vue";
     import AppButton from "@/components/shared/AppButton.vue";
     import {delay} from "@/api/delay";
     import {Prop, Watch} from "vue-property-decorator";
     import {productApi} from "@/api/productApi";
     import {IProductDto} from "@/dto/product";
-    import {EventBus, EventBusEvents} from "@/EventBus";
 
     //********************************************
 
@@ -67,7 +67,6 @@
         name: "product",
         components: {
             AppButton,
-            ProductEditor,
             BackButton,
             Wait,
             Error
@@ -95,27 +94,13 @@
             this._showLoader("Laster inn produkt...");
 
             /*
-                1. Sett opp produkt route.
-                2. Sett opp id prop
-                3. Hent produktet fra productApi
-                4.
+                1. Sett opp id prop
+                2. Hent produktet fra productApi
              */
 
             await delay(1000);
             this._showError("Not implemented");
         }
-
-        /**
-         * Save current product state to server.
-         */
-        async save(): Promise<void> {
-            this._showLoader("Vent mens produktet lagres...");
-            await delay(1000);
-            this._showError("Not implemented");
-        }
-
-
-
 
 
         //** UTILS....

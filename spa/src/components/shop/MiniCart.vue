@@ -19,11 +19,8 @@
         //** COMPUTED:
 
         get count(): number {
-            if (this.$store.shoppingList == null) {
-                return 0;
-            } else {
-                return (this.$store.shoppingList.entries || []).length;
-            }
+            //TODO: Return number of products in shopping list.
+            return 0;
         }
     }
 </script>
