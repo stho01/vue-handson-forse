@@ -74,27 +74,16 @@ Problemet er at ruten _product_ krever en id for at den skal matche.
 **B)**  Bruk id'en til å hente ned produktet fra `productApi` og sett produktet til 
         _product_ variabelen.
 
-**C)**  I _Product.vue_ malen: bytt ut {{product.name}} og {{product.weight}} bindings med input 
-        felter. Benytt two-way binding.
+**C)**  I malen til Product.vue: bytt ut one-way bindings med two-way bindings for navn og vekt.
     
-**D)**  Legg til en _click handler_ på _lagre_ knappen og lagre produktet med `productApi`. 
+**D)**  Legg til en _lagre_ knapp som sender produktet til "serveren" med `productApi`. 
+        
+**E)**  Legg til en tilbake knapp som navigerer til forrige side. _Tips: kan bruke BackButton.vue_ 
 
-**E)**  Legg til en tilbake knapp som navigerer til forrige side.
-        _Tips: kan bruke BackButton.vue_ 
-
-**Ekstra oppgave)**
-
-Dersom produktet med id'en ikke finnes kastes det en exception fra APIet, men bruker vil bare
-en loader som aldri blir borte. 
-Bruk ~\src\components\shared\Error.vue komponentet til å vise feilmelding til bruker dersom produkt med id ikke finnes.
-
-## 4) Kort om v-model modifiers
-
-I forrige oppgave satte vi opp input felter for _product.name_ og _product.weight_.
-problemet er kanskje litt usynlig, men weight er satt opp til å være data typen `number`.  
-v-model hånderer alt som strings dersom man ikke gir indikasjon på noe annet.
+## 4) Kort om v-model modifiers + litt om watchers.
     
 ```
+// Legg merke til at weight er av typen number. 
 interface IProduct {
     id: string;
     name: string;
@@ -102,8 +91,11 @@ interface IProduct {
 }
 ```
 
-**A)**  Bruk number modifier på product.weight `v-model` bindingen for å fortelle Vue 
-        at dette feltet skal være av typen number.
+**A)**  Lag en watcher som lytter til endringer på `project` variabelen, logg ut `typeof this.project.weight` i watchern.  
+        Gjør en endring i inputfeltet til weight og se i console'en i nettleseren. Hva har ser du?
+        
+**B)** Fiks det med number modifier!   
+  
         
 ## 5) ProductEditor.vue - Data flyt opp og ned fra komponenter
 
@@ -121,13 +113,13 @@ Kopier malen under og lim inn i det nye komponentet.
 <template>
     <table></table>
 </template>
-<scripts lang="ts">
+<script lang="ts">
     import Vue from "vue";
     import {Component} from "vue-property-decorator";
     
     @Component
     export default class ProductEditor extends Vue { }
-</scripts>
+</script>
 ```
 
 **C)**  Kopier tabellen i NewProduct.vue og lim den inn i malen til det nye komponentet. Fjern
@@ -147,17 +139,15 @@ Det hadde vært fint vise notifikasjoner når brukeren gjør noe av betynding, f
 
 **A)**  Sjekk ut `IEventBus` interfacet i _~\src\EventBus.ts_.
 
-**B)**  Instansier en ny Vue instans i filen IEventBus.ts og eksporter en konstant EventBus av type IEventBus.
+**B)**  Instansier en ny Vue instans i filen IEventBus.ts og eksporter den som en konstant "EventBus" av typen IEventBus.
 
-**C)**  Bruk provide/inject for å eksponere EventBus'en ned til under komponenter av App.vue.
-        Bruk `@Provide(key: string)` dekoratoren for å eksponere instansen til EventBus'en ned 
-        til under komponenter.
+**C)**  Bruk provide/inject for å eksponere EventBus'en ned til barne-komponenter av App.vue. Bruk @Provide(key: string) dekoratoren for å eksponere instansen til EventBus'en ned til under komponenter.
     
-**D)**  I `~\src\components\notification\NotificationPopupList.vue` bytt ut `@Prop` dekoratoren med 
-    `@Inject(key: string)`.
+**D)**  I `~\src\components\notification\NotificationPopupList.vue` burk @Inject istedet for @Prop for å injisere eventBus 
+        fra App.vue.
     
-**E)**  Inject EventBus'en til NewProduct.vue og fyr av en DISPLAY_NOTIFICATION event når et nytt 
-        produkt er lagd og lagret med `productApi`.   
+**E)**  Inject EventBus til NewProduct.vue og fyr av en DISPLAY_NOTIFICATION event når et nytt 
+        produkt er opprettet og lagret. (Bruk `productApi` for lagring)   
     
 ## 7) Simpel store, handlekurv eksempel. 
 
@@ -165,13 +155,13 @@ Det hadde vært fint vise notifikasjoner når brukeren gjør noe av betynding, f
 
 **B)**  Se på ~\src\main.ts på linje 14,
         `Vue.use(<plugin_function>)`.
-    
-**C)**  Legg til en _click handler_ på _legg til_ knappene i `~\src\views\Products.vue` og legg til 
-        produktet i `$store.shoppingList`.
 
-**D)**  Åpne fila `~\src\components\shop\MiniCart.vue`,
+**C)**  Åpne fila `~\src\components\shop\MiniCart.vue`,
         bruk `$store` til å hente antall produkter det er i handlekurven.
     
+**D)**  Legg til en _click handler_ på _legg til_ knappene i `~\src\views\Products.vue` og legg til 
+        produktet i `$store.shoppingList`.
+ 
 **E)**  Åpne fila `~\src\views\ShoppingCart.vue`,
         bruk `$store` til å liste ut alle produkter som er lagt til 
 

@@ -34,9 +34,7 @@
             <tfoot>
             <tr>
                 <td colspan="2" class="button-cell">
-                    <!-- TODO: Handle back and save -->
-                    <back-button />
-                    <app-button>Lagre</app-button>
+
                 </td>
             </tr>
             </tfoot>
@@ -145,7 +143,7 @@
 
             button {
                 margin-left: auto;
-                display: block;
+                display: inline-block;
             }
         }
     }
