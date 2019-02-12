@@ -47,27 +47,15 @@
         5)  Bruk v-on direktivet igjen og bind den nye metoden. Send inn en vilkårlig tekst og se at den printes ut til
             console.
 
+        6) Bruk "@" aliaset istedet å skrive v-on
 
-        6)  Problem, i metoden fra punkt 5) har vi ikke lenger 'event' argumentet. Legg til et nytt argument i metoden,
-            kall den gjerne 'event'. logg ut 'event' argumentet til console.
-
-
-        7)  undefined? For å sende med event objektet må den manuelt ble sendt med i metoden.
-            Legg til $event til metodekallet i v-on.
-
-
-        8)  Bytt ut alle steder v-on direktivet er brukt og bruk aliaset @click="handler" istedet.
-
-        NOTE:   Noen direktiver har aliaser/shortcuts, v-on direktivet kan også settes opp med
-                aliaset @<argument>="handler", feks. @click="handler".
-
-                '@' aliaset er nok den mest vanlige måten å sette opp eventer på i Vue.
-
+        NOTE:   Noen direktiver har aliaser, v-on kan feks settes opp slik @<event>="handler" og er nok den
+                mest brukte metoden.
 
         NOTE: v-on direktivet er kompatibel med alle native eventer et element har.
 
 
-        9)  Legg til et tekstfelt og sett opp en change event.
+        7)  Legg til et tekstfelt og sett opp en change event.
 
         NOTE:   Det er mulig å binde flere handlere med v-on="{ 'event': handler }".
                 f.eks:
