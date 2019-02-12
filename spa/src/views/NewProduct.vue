@@ -2,41 +2,6 @@
     <div class="new-product">
         <h1>Nytt produkt</h1>
         <wait v-if="saving">Vent mens produktet lagres...</wait>
-        <table v-else>
-            <thead>
-            <tr>
-                <th colspan="2">
-                    Produkt - {{ product.name }}
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <th>
-                    Navn
-                </th>
-                <td>
-                    <input type="text" v-model="product.name" />
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    Vekt
-                </th>
-                <td>
-                    <input type="text" v-model.number="product.weight" />
-                </td>
-            </tr>
-            </tbody>
-            <tfoot>
-            <tr>
-                <td colspan="2" class="button-cell">
-                    <back-button />
-                    <app-button @click="save">Lagre</app-button>
-                </td>
-            </tr>
-            </tfoot>
-        </table>
     </div>
 </template>
 
@@ -74,11 +39,7 @@
         async save(): Promise<void> {
             this.saving = true;
 
-            await productApi.upsertProduct({
-                id: this.product.id,
-                name: this.product.name,
-                weight: this.product.weight
-            });
+            // TODO: Dispatch new product to "server"
 
             this.saving = false;
         }
