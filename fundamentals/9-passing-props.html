@@ -25,10 +25,16 @@
 
         1)  Legg til egenskapen 'props': [] i options-objektet til 'foo' komponentet.
 
-        2)  I arrayen kan vi deklarere navn på properties komponentet kan bruke.
-            Angi ["message", "value"] til props egenskapen.
+        2)  I arrayen kan vi deklarere navn på properties som komponentet kan benytte seg av.
+            Legg til denne ["message", "value"] på props egenskapen og deretter legg til en message
+            og en value på foo.
 
-        3)  Test 'foo' komponenten.
+        3)  Legg til et dataobjekt på root instansen (#app) med en "message" egenskap send så denne
+            meldingen ned til foo.
+
+        4)  Gjør det samme med value.
+
+        5)  "value" propertien skal alltid være av type Number, legg til validering på value prop'en.
 
      */
 
