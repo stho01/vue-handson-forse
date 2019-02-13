@@ -44,7 +44,7 @@ class ProductApi {
             throw new Error(`Produktet med id ${id} finnes ikke`);
         }
 
-        return {...product};
+        return { ...product };
     }
 
     //********************************************
@@ -55,9 +55,10 @@ class ProductApi {
         const existingProduct = this._products.find(p => p.id === product.id);
 
         if (!existingProduct) {
-            if (product.id === null) {
+            if (product.id == null || product.id === "") {
                 product.id = this.generateProductId();
             }
+
             this._products.push(product);
         } else {
             existingProduct.name = product.name;
