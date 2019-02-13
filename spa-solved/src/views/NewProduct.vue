@@ -11,7 +11,6 @@
     import Vue from "vue"
     import Component from "vue-class-component"
     import {IProduct} from "@/domain/product";
-    import {IProductDto} from "@/dto/product";
     import {productApi} from "@/api/productApi";
     import Wait from "@/components/shared/Wait.vue";
     import Error from "@/components/shared/Error.vue";
@@ -37,11 +36,10 @@
 
         //** METHODS
 
-        protected async save(): Promise<void> {
+        protected async save(newProduct: IProduct): Promise<void> {
             try {
                 this.saving = true;
 
-                const newProduct: IProductDto = this.createDto();
                 await productApi.upsertProduct(newProduct);
 
                 this.$router.replace({name: RouteNames.PRODUCTS});
@@ -56,18 +54,8 @@
             } finally {
                 this.saving = false;
                 this.errorMessage = null;
-                // Reset product in case of keep-alive usage..
-                this.product = this.createEmptyProduct();
-
+                this.product = this.createEmptyProduct(); // Reset product in case of keep-alive usage..
             }
-        }
-
-        protected createDto(): IProductDto {
-            return {
-                id: productApi.generateProductId(),
-                name: this.product.name || "Nytt produkt",
-                weight: this.product.weight || 0
-            };
         }
 
         protected createEmptyProduct(): IProduct {
@@ -81,6 +69,5 @@
         protected cancel(): void {
             this.$router.back();
         }
-
     }
 </script>

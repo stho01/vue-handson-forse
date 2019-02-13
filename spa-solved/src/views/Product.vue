@@ -16,7 +16,6 @@ import {EventBusEvents} from "../EventBus";
     import {Prop, Watch} from "vue-property-decorator";
     import {productApi} from "@/api/productApi";
     import {IProduct} from "@/domain/product";
-    import {IProductDto} from "@/dto/product";
     import Wait from "@/components/shared/Wait.vue";
     import Error from "@/components/shared/Error.vue";
     import BackButton from "@/components/shared/BackButton.vue";
@@ -80,27 +79,23 @@ import {EventBusEvents} from "../EventBus";
         /**
          * Save current product state to server.
          */
-        async save(changedProduct: IProduct): Promise<void> {
+        async save(delta: IProduct): Promise<void> {
             this._showLoader("Vennligst vent mens produktet lagres...");
 
-            const product: IProductDto = {
-                id: changedProduct.id,
-                name: changedProduct.name,
-                weight: changedProduct.weight
-            };
 
             try {
-                await productApi.upsertProduct(product);
+                await productApi.upsertProduct(delta);
+                this.product = { ...delta };
 
                 EventBus.$emit(EventBusEvents.DISPLAY_NOTIFICATION, {
-                    message: `${product.name} (${product.id}) oppdatert`
+                    message: `${delta.name} oppdatert`
                 });
+
             } catch (e) {
                 this._showError(e.toString());
             } finally {
                 this._hideLoader();
             }
-
         }
 
         /**
