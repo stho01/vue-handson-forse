@@ -38,7 +38,8 @@ class ProductApi {
     async getProduct(id: string): Promise<IProduct> {
         await delay(); // to simulate data transfer over network.
 
-        const product: IProduct | undefined = this._products.filter(p => p.id === id).pop();
+        const products: IProduct[] = Array.prototype.slice.call(this._products);
+        const product: IProduct | undefined = products.filter(p => p.id === id).pop();
 
         if (!product) {
             throw new Error(`Produktet med id ${id} finnes ikke`);
