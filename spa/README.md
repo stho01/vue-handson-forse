@@ -91,8 +91,8 @@ interface IProduct {
 }
 ```
 
-**A)**  Lag en watcher som lytter til endringer på `project` variabelen, logg ut `typeof this.project.weight` i watchern.  
-        Gjør en endring i inputfeltet til weight og se i console'en i nettleseren. Hva har ser du?
+**A)**  Lag en watcher som lytter til endringer på `product.weight` variabelen, logg ut `typeof this.project.weight` i watchern.  
+        Gjør en endring i inputfeltet til weight og se i console i nettleseren. Hva har ser du?
         
 **B)** Fiks det med number modifier!   
   
@@ -102,10 +102,7 @@ interface IProduct {
 **A)**  I _Products.vue_ er det satt opp en knapp som med teksten _Nytt Produkt_.
         Legg til en _click handler_ som navigerer brukeren til _NewProduct.vue_ med ruten 
         `RouteNames.NEW_PRODUCT`. Bruk `$router` APIet.
-        
-    Note: Legg merke til at malen til NewProduct.vue er veldig lik malen vi 
-    satte opp i Product.vue
-        
+    
 **B)**  Lag en ny vue fil: `~\src\components\product\ProductEditor.vue`.
 
 Kopier malen under og lim inn i det nye komponentet. 
@@ -122,7 +119,7 @@ Kopier malen under og lim inn i det nye komponentet.
 </script>
 ```
 
-**C)**  Kopier tabellen i NewProduct.vue og lim den inn i malen til det nye komponentet. Fjern
+**C)**  Kopier tabellen i Product.vue og lim den inn i malen til det nye komponentet. Fjern
         v-else direktivet fra table tag'en.
     
 **D)**  Sett opp en `prop` som tar i mot et produkt. 
@@ -166,3 +163,6 @@ Det hadde vært fint vise notifikasjoner når brukeren gjør noe av betynding, f
         bruk `$store` til å liste ut alle produkter som er lagt til 
 
 **F)**  Implementer `removeEntry(entry: IShoppingEntry): Promise<void>` metoden `~\src\views\ShoppingCart.vue`. 
+
+
+## 8) Gjør appen fin :-) 
