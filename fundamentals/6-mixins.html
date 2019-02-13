@@ -51,24 +51,21 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
 
-    /*
-        # Oppgave
+/*
+    # Oppgave
 
-        NOTE:   Under har vi to identiske instanser av Vue.
-                Vi kan bruke mixins for dele/arve funksjonalitet.
-                'mixins' er en egenskap i options objektet til Vue konstruktøren.
+    NOTE:   Under har vi to identiske instanser av Vue.
+            Vi kan bruke mixins for dele/arve funksjonalitet.
+            'mixins' er en egenskap i options objektet til Vue konstruktøren.
 
+    1)  Flytt gjenntagende kode over i et eget options-objekt.
 
-        1)  Flytt gjenntagende kode over i et eget options-objekt.
+    2)  Fjern all gjenntagende kode og bruk objektet som en mixin i Vue instansene #app1 og #app2.
 
-        2)  Fjern all gjenntagende kode og bruk objektet som en mixin i Vue instansene #app1 og #app2.
+    3)  Splitt opp objektet enda en gang, slik at font og cssClass er hver sin mixin.
 
-        3)  Splitt opp mixin objektet du akkurat lagde.
-            Kode for font stilen skal inn i sitt eget objekt og cssClass koden skal i et eget objekt.
-
-        4)  Legg begge mixins i #app1 og #app2.
-
-     */
+    4)  Legg begge mixins i #app1 og #app2.
+ */
 
     new Vue({
         el: "#app1",
