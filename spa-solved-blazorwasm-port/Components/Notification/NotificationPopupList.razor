@@ -1,0 +1,70 @@
+﻿@using Forse.Shop.Domain
+@implements IDisposable
+@inject EventBus _eventBus
+
+<div class="notification-popup-list">
+    <div class="fade">
+        @foreach(var notification in Notifications)
+        {
+            <NotificationPopup
+                Notification="notification"
+                Click="() => DeleteNotification(notification)"/>
+        }
+    </div>
+</div>
+
+
+@code {
+
+    //**********************************************************
+    //** Parameters
+    //**********************************************************
+
+    [Parameter]
+    public int DisplayTime { get; set; } = 3000;
+
+    //**********************************************************
+    //** fields
+    //**********************************************************
+
+    private List<Notification> Notifications { get; set; } = new();
+
+    //**********************************************************
+    //** lifecycle
+    //**********************************************************
+
+    protected override void OnInitialized()
+    {
+        _eventBus.On(EventBusEvents.DisplayNotification, OnDisplayNotification);   
+    }
+
+    public void Dispose()
+    {
+        _eventBus.Off(EventBusEvents.DisplayNotification, OnDisplayNotification);
+    }
+
+    //**********************************************************
+    //** methods:
+    //**********************************************************
+
+    private void DeleteNotification(Notification notification)
+    {
+        Notifications.Remove(notification);
+        StateHasChanged();
+    }
+
+    //**********************************************************
+    //** events handlers:
+    //**********************************************************
+
+    private void OnDisplayNotification(object args)
+    {
+        if (args is not Notification notification)
+            return;
+        
+        Notifications.Add(notification);
+        StateHasChanged();
+
+        SetTimeout(() => DeleteNotification(notification), DisplayTime);
+    }
+}

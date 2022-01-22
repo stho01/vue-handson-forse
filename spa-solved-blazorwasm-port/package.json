@@ -1,0 +1,9 @@
+﻿{
+  "license": "MIT",
+  "scripts": {
+    "sass": "sass"
+  },
+  "dependencies": {
+    "sass": "^3.4.0"
+  }
+}

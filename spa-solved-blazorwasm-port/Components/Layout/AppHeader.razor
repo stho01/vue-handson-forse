@@ -1,0 +1,22 @@
+﻿<div class="app-header">
+    <div class="wrapper">
+        <NavLink href="@Routes.Home">
+            <img src="/assets/logo.svg" alt="Forse logo" class="app-header__logo">
+        </NavLink>
+        <nav>
+            <div class="app-header__nav-links">
+                <NavLink Match="NavLinkMatch.All" title="Forside" href="@Routes.Home">Forside</NavLink>
+                <NavLink title="Produkter" href="@Routes.Products">Produkter</NavLink>
+            </div>
+            <MiniCart Class="app-header__cart"/>
+        </nav>
+    </div>
+</div>
+
+@code {
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+    }
+
+}

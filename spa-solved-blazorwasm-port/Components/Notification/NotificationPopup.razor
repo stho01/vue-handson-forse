@@ -1,0 +1,34 @@
+﻿@using Forse.Shop.Domain
+<div class="@BaseClass @TypeClass" @onclick="Click">
+    @Notification.Message
+</div>
+
+@code {
+
+    //**********************************************************
+    //** parameters:
+    //**********************************************************
+
+    [Parameter]
+    public Notification Notification { get; set; } = null!;
+    
+    [Parameter]
+    public EventCallback Click { get; set; }
+
+    //**********************************************************
+    //** fields
+    //**********************************************************
+    
+    private const string BaseClass = "notification-popup";
+    private static readonly Dictionary<NotificationType, string> TypeMap = new()
+    {
+        { NotificationType.Message, $"{BaseClass}--message" },
+        { NotificationType.Error, $"{BaseClass}--error" }
+    };
+
+    //**********************************************************
+    //** computed props
+    //**********************************************************
+
+    private string TypeClass => TypeMap[Notification?.Type ?? NotificationType.Message];
+}

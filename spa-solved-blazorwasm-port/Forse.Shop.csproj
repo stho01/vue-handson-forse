@@ -1,0 +1,54 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Blazored.LocalStorage" Version="4.1.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.0" PrivateAssets="all" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ComponentScssFiles Include="**/*/*.scss" Exclude="node_modules/**;wwwroot/**;Styles/**" />
+  </ItemGroup>
+  
+  <!-- Compile SCSS files into CSS -->
+  <Target Name="CompileGlobalSass" BeforeTargets="Compile">
+    <Message Text="Compiling global SCSS files" Importance="high" />
+    <Exec Command="yarn run sass -- --no-source-map --load-path=. Styles/main.scss:wwwroot/css/main.css" />
+    <Exec Condition="!$([System.Text.RegularExpressions.Regex]::IsMatch('%(ComponentScssFiles.Identity)', `.*[/\\]_.*`))" Command="yarn run sass -- --no-source-map --load-path=. %(ComponentScssFiles.Identity) %(relativedir)%(filename).css" />
+  </Target>
+  
+  <ItemGroup>
+    <Content Include="Styles\atoms\_index.scss" />
+    <Content Include="Styles\base\elements\_a.scss" />
+    <Content Include="Styles\base\elements\_body.scss" />
+    <Content Include="Styles\base\elements\_button.scss" />
+    <Content Include="Styles\base\elements\_h.scss" />
+    <Content Include="Styles\base\elements\_html.scss" />
+    <Content Include="Styles\base\elements\_img.scss" />
+    <Content Include="Styles\base\elements\_table.scss" />
+    <Content Include="Styles\base\_index.scss" />
+    <Content Include="Styles\layout\_index.scss" />
+    <Content Include="Styles\layout\_wrapper.scss" />
+    <Content Include="Styles\main.scss">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Styles\mixins\_fonts.scss" />
+    <Content Include="Styles\mixins\_index.scss" />
+    <Content Include="Styles\variables\_color-palette.scss" />
+    <Content Include="Styles\variables\_font-families.scss" />
+    <Content Include="Styles\variables\_index.scss" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\css\bootstrap\bootstrap.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\bootstrap\bootstrap.min.css.map" />
+  </ItemGroup>
+
+</Project>

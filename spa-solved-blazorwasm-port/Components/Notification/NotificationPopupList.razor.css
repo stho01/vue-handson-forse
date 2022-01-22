@@ -1,0 +1,21 @@
+.notification-popup-list {
+  display: flex;
+  flex-direction: column-reverse;
+  position: fixed;
+  height: 0;
+  bottom: 0;
+  right: 0;
+}
+.notification-popup-list ::deep .notification-popup {
+  margin: 3px;
+  cursor: pointer;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: all 1s;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
+}

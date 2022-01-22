@@ -1,0 +1,49 @@
+﻿@import "Styles/variables/index";
+
+::deep .shopping-cart {
+  position: relative;
+  width: 25px;
+  height: 25px;
+  display: inline-block;
+  
+  &__icon {
+    img {
+      display: block;
+      width: 25px;
+      height: 25px;
+    }
+  }
+
+  &__count {
+    position: absolute;
+    right: -7px;
+    top: -7px;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    font-size: 10px;
+    border-radius: 100px;
+    color: white;
+    background: $color-base;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color: transparent;
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    transition: 100ms background-color;
+  }
+
+  &:hover::before {
+    background-color: rgba(black, .2);
+  }
+}

@@ -1,0 +1,38 @@
+﻿
+<div>
+    <NavLink href="@Routes.ShoppingCart" class="@CssClasses" title="Handlekurv">
+        @if (Count > 0) {
+            <span class="shopping-cart__count">@Count</span>
+        }
+
+        <span class="shopping-cart__icon">
+            <img src="/assets/images/shopping-cart.svg" alt="Handlekurv"/>
+        </span>
+    </NavLink>
+</div>
+
+@code {
+
+    //**********************************************************
+    //** parameters
+    //**********************************************************
+
+    [Parameter]
+    public string? Class { get; set; }
+
+    [CascadingParameter]
+    public ApplicationState? ApplicationState { get; set; }
+    
+    //**********************************************************
+    //** fields & properties
+    //**********************************************************
+
+    private int Count => ApplicationState?.ShoppingList?.Entries?.Sum(e => e.Amount) ?? 0;
+    private string CssClasses => 
+        string.Join(" ", new Dictionary<string, bool> 
+        {
+            { "shopping-cart", true },    
+            { Class ?? "", true }    
+        }.Where(x => x.Value)
+        .Select(x => x.Key));
+}

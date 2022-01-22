@@ -1,0 +1,39 @@
+﻿@using Forse.Shop.Domain
+@inject EventBus _eventBus
+
+<CascadingValue Value="@this">
+    @ChildContent
+</CascadingValue>
+
+@code {
+    //**********************************************************
+    //** parameters
+    //**********************************************************
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    //**********************************************************
+    //** fields & properties
+    //**********************************************************
+
+    public ShoppingList ShoppingList { get; set; } = new();
+
+    //**********************************************************
+    //** methods
+    //**********************************************************
+
+    public void AddToCart(ProductName productName)
+    {
+        ShoppingList.Add(productName);
+        StateHasChanged();
+        _eventBus.Emit(EventBusEvents.DisplayNotification, new Notification($"Produktet {productName.Name} ({productName.Id}) ble lagt til i handlelisten"));
+    }
+
+    public void RemoveFromCart(ProductName product)
+    {
+        ShoppingList.Remove(product);
+        StateHasChanged();
+        _eventBus.Emit(EventBusEvents.DisplayNotification, new Notification($"{product.Name} - ({product.Id}) ble fjernet fra listen"));
+    }
+}

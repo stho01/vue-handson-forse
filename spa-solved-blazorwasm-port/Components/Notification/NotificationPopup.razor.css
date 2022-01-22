@@ -1,0 +1,16 @@
+.notification-popup {
+  padding: 10px 30px;
+  background: #1e8ba8;
+  color: white;
+  border-radius: 3px;
+  font-size: 15px;
+  width: 300px;
+  min-height: 75px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+.notification-popup--error {
+  background-color: #ff687e;
+}

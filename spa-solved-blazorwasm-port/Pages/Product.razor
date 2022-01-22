@@ -1,0 +1,123 @@
+﻿@page "/products/{id}"
+@inject IProductApi _productApi
+@inject IJSRuntime _jsRuntime
+@inject EventBus _eventBus
+
+<PageTitle>Forse Shop | Produkt </PageTitle>
+
+<div class="product">
+    <h1>Produkt</h1>
+    @if (_loading) {
+        <Wait>@_loadingMessage</Wait>
+    } else if(_product == null){
+        <Error>@_errorMessage</Error>
+    } else {
+        <ProductEditor Product="_product" Save="SaveAsync" Cancel="CancelAsync" />    
+    }
+</div>
+
+@code {
+
+    //**********************************************************
+    //** parameter
+    //**********************************************************
+
+    [Parameter]
+    public string Id { get; set; } = null!;
+
+    //**********************************************************
+    //** fields
+    //**********************************************************
+
+    private bool _loading;
+    private Domain.Product? _product;
+    private string? _loadingMessage;
+    private string? _errorMessage;
+
+    //**********************************************************
+    //** life cycle
+    //**********************************************************
+
+    protected override async Task OnInitializedAsync()
+    {
+        await FetchDataAsync();
+    }
+
+    //**********************************************************
+    //** methods
+    //**********************************************************
+
+    private async Task FetchDataAsync()
+    {
+        _product = await LoadAsync(
+            "Vennligst vent mens produktet laster inn...",
+            async () => await _productApi.GetProductAsync(Id));
+    }
+
+    //**********************************************************
+
+    private async Task<T?> LoadAsync<T>(string message, Func<Task<T>> action) 
+    {
+        try
+        {
+            ShowLoader(message);
+            return await action();
+        }
+        catch (Exception e)
+        {
+            ShowError(e.Message);
+            return default;
+        }
+        finally
+        {
+            HideLoader();
+        }
+    }
+
+    //**********************************************************
+
+    private void ShowLoader(string message)
+    {
+        _loading = true;
+        _loadingMessage = message;
+    }
+
+    //**********************************************************
+
+    private void HideLoader()
+    {
+        _loading = false;
+        _loadingMessage = null;
+    }
+
+    //**********************************************************
+
+    private void ShowError(string message)
+    {
+        _errorMessage = message;
+        _product = null;
+    }
+    
+    //**********************************************************
+    //** event handlers
+    //**********************************************************
+
+    private async Task SaveAsync(Domain.Product edited)
+    {
+        await LoadAsync(
+            "Vennligst vent mens produktet lagres...",
+            async () =>
+            {
+                await _productApi.UpsertProductAsync(edited);
+                _eventBus.Emit(EventBusEvents.DisplayNotification, new Notification($"{edited.Name} ({edited.Id}) oppdatert"));
+                return 0;
+            });
+    }
+
+    //**********************************************************
+
+    private async Task CancelAsync()
+    {
+        await _jsRuntime.InvokeVoidAsync("history.back");
+    }
+}

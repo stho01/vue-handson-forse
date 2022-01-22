@@ -1,0 +1,83 @@
+﻿@using System.Runtime.CompilerServices
+@using System.ComponentModel.DataAnnotations
+@using Forse.Shop.Domain
+
+<table class="product-editor">
+    <thead>
+    <tr>
+        <th colspan="2">Produkt - @Product.Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th>
+            Navn
+        </th>
+        <td>
+            <label>
+                <input type="text" @bind="EditProduct.Name" />
+            </label>
+        </td>
+    </tr>
+    <tr>
+        <th>
+            Vekt
+        </th>
+        <td>
+            <label>
+                <input type="number" @bind="EditProduct.Weight" />
+            </label>
+        </td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+        <td colspan="2" class="button-cell">
+            <AppButton Click="Cancel">Avbryt</AppButton>
+            <AppButton Click="OnSaveClickedAsync">Lagre</AppButton>
+        </td>
+    </tr>
+    </tfoot>
+</table>
+
+@code {
+    //**********************************************************
+    //** parameters:
+    //**********************************************************
+
+    [Parameter]
+    public Product Product { get; set; } = null!;
+    [Parameter]
+    public EventCallback<Product> Save { get; set; }
+    [Parameter]
+    public EventCallback Cancel { get; set; }
+
+    //**********************************************************
+    //** fields && properties
+    //**********************************************************
+
+    private Product EditProduct { get; set; } = null!;
+
+    //**********************************************************
+    //** life cycle:
+    //**********************************************************
+
+    
+    protected override void OnInitialized()
+    {
+        EditProduct = new Product {
+            Id = Product.Id,
+            Name = Product.Name,
+            Weight = Product.Weight
+        };
+    }
+
+    //**********************************************************
+    //** event handlers:
+    //**********************************************************
+    
+    private async Task OnSaveClickedAsync()
+    {
+        await Save.InvokeAsync(EditProduct);
+    }
+}

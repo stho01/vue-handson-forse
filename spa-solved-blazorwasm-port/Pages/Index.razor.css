@@ -1,0 +1,26 @@
+.home {
+  text-align: center;
+}
+::deep .home__shortcuts {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1024px;
+  margin: 30px auto;
+}
+::deep .home__shortcuts > a {
+  width: calc(33.33% - 20px);
+  font-size: 30px;
+  text-align: center;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  transition: background-color 150ms ease-out;
+  will-change: background-color;
+  margin: 10px;
+  background-color: black;
+}
+::deep .home__shortcuts > a:hover {
+  background-color: #1e8ba8;
+}

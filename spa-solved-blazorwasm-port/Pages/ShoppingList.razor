@@ -1,0 +1,50 @@
+﻿@page "/shopping-list"
+@inject EventBus _eventBus
+
+<PageTitle>Forse Shop | Handleliste </PageTitle>
+
+<div class="shopping-cart">
+    <h1>Handleliste</h1>
+    <table>
+        <colgroup>
+            <col>
+            <col>
+            <col style="width: 100px">
+        </colgroup>
+        <thead>
+        <tr>
+            <th colspan="3">Handleliste</th>
+        </tr>
+        <tr>
+            <th>Navn</th>
+            <th>Antall</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var entry in ShoppingEntries)
+        {
+            <tr>
+                <td>@entry.Product.Name</td>
+                <td>@entry.Amount stk</td>
+                <td><AppButton Click="() => ApplicationState?.RemoveFromCart(entry.Product)">Fjern</AppButton></td>
+            </tr>    
+        }
+        </tbody>
+    </table>
+</div>
+
+@code {
+    //**********************************************************
+    //** parameters
+    //**********************************************************
+
+    [CascadingParameter]
+    public ApplicationState? ApplicationState { get; set; }
+
+    //**********************************************************
+    //** fields & props
+    //**********************************************************
+
+    public IEnumerable<ShoppingEntry> ShoppingEntries => ApplicationState?.ShoppingList.Entries ?? Enumerable.Empty<ShoppingEntry>();
+}

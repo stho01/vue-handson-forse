@@ -1,0 +1,96 @@
+﻿@page "/products"
+@inject IProductApi _productApi
+@inject NavigationManager _navigationManager
+@inject EventBus _eventBus
+
+<PageTitle>Forse Shop | Produkter </PageTitle>
+
+<div class="products">
+    <h1>Produkter</h1>
+    @if (Loading)
+    {
+        <Wait>Vennligst vent mens produkter laster inn...</Wait>
+    }
+    else
+    {
+        <div>
+            <table>
+                <colgroup>
+                    <col>
+                    <col>
+                    <col width="130px">
+                </colgroup>
+                <thead>
+                <tr>
+                    <th colspan="3">Produkter</th>
+                </tr>
+                <tr>
+                    <th>ID</th>
+                    <th>Navn</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var product in ProductList)
+                {
+                    <tr>
+                        <td>
+                            <NavLink href="@Routes.Product(product.Id)">@product.Id</NavLink>
+                        </td>
+                        <td>
+                            @product.Name
+                        </td>
+                        <td>
+                            <AppButton Click="() => ApplicationState?.AddToCart(product)">Legg til</AppButton>
+                        </td>
+                    </tr>
+                }
+                <tr>
+                    <td colspan="3">
+                        <AppButton Click="NewProduct">Nytt produkt</AppButton>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+
+@code {
+
+    //**********************************************************
+    //** parameters
+    //**********************************************************
+
+    [CascadingParameter]
+    public ApplicationState? ApplicationState { get; set; }
+    
+    //**********************************************************
+    //** props:
+    //**********************************************************
+
+    private bool Loading { get; set; }
+    private List<ProductName> ProductList { get; } = new();
+
+    //**********************************************************
+    //** life cycle
+    //**********************************************************
+
+    protected override async Task OnInitializedAsync()
+    {
+        Loading = true;
+        try {
+            ProductList.AddRange(await _productApi.GetProductsAsync());
+        }
+        finally {
+            Loading = false;
+        }
+    }
+
+    //**********************************************************
+
+    private void NewProduct()
+    {
+        _navigationManager.NavigateTo(Routes.NewProduct);
+    }
+}

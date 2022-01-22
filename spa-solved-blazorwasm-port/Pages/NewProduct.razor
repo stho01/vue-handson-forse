@@ -1,0 +1,83 @@
+﻿@page "/products/new"
+@inject IProductApi _productApi
+@inject NavigationManager _navigationManager
+@inject EventBus _eventBus
+@inject IJSRuntime _jsRuntime
+
+<PageTitle>Forse Shop | Nytt Produkt </PageTitle>
+
+<div class="new-product">
+    <h1>Nytt produkt</h1>
+    
+    @if (_saving)
+    {
+        <Wait>Vennligst vent mens produktet lagres...</Wait>
+    }
+    else
+    {
+        <ProductEditor Product="_product" Save="SaveAsync" Cancel="Cancel" />
+    }
+    
+    @if (_errorMessage != null)
+    {
+        <Error>@_errorMessage</Error>
+    }
+</div>
+
+@code {
+
+    //**********************************************************
+    //** fields:
+    //**********************************************************
+
+    private bool _saving;
+    private string? _errorMessage;
+    private Domain.Product _product = CreateEmptyProduct();
+
+    //**********************************************************
+    //** methods:
+    //**********************************************************
+
+    private static Domain.Product CreateEmptyProduct()
+    {
+        return new Domain.Product
+        {
+            Id = "",
+            Name = "Nytt produkt",
+            Weight = 0f
+        };
+    }
+    
+    //**********************************************************
+    //** event handlers:
+    //**********************************************************
+
+    private async Task SaveAsync(Domain.Product product)
+    {
+        _saving = true;
+        try
+        {
+            await _productApi.UpsertProductAsync(product);
+
+            _eventBus.Emit(EventBusEvents.DisplayNotification, new Notification($"{product.Name} lagt til i produktlisten"));
+        }
+        catch (Exception e)
+        {
+            _errorMessage = e.Message;
+        }
+        finally
+        {
+            _saving = false;
+            _errorMessage = null;
+            _product = CreateEmptyProduct();
+        }
+        
+        _navigationManager.NavigateTo(Routes.Products);
+    }
+
+    //**********************************************************
+
+    private async Task Cancel() {
+        await _jsRuntime.InvokeVoidAsync("history.back");
+    }
+}
