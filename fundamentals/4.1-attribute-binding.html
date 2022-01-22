@@ -26,13 +26,13 @@
 
     1) Sett opp en vue instans som har:
         * Et dataobjekt med en egenskap 'cssClass' gi den verdien "red".
-        * En toggle metode som bytter mellom teksten "red" og "blue".
+        * En metode som "toggler" cssClass til "blue" dersom cssClass er "red" og "red" dersom omvendt.
 
     2) Sett opp malen og bind den til vue instansen, malen skal ha:
         * En knapp som trigger toggle metoden når den klikkes.
         * En div med teksten "Disco" inni.
 
-    3)  Bruk v-bind direktivet til å binde opp 'data.cssClass' egenskapen.
+    3)  Bruk v-bind direktivet til å binde opp cssClass egenskapen mot class attributtet til div elementet.
         Se at det fungerer ved å trykke på 'Switch Color' knappen.
 
         NOTE:   v-bind direktivet kan brukes til å binde en data egenskap mot et element attributt.

@@ -18,67 +18,51 @@
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
-    /*
-        # Oppgave
+/*
+    # Oppgave
 
-        1)  Sett opp en vue instans og 'mount' den til div#app.
-
-
-        2)  Vue instansen har en option egenskap som heter 'methods'.
-            Den brukes for å sette opp funksjoner som kan brukes i vue konteksten.
-            Legg til en metode i methods og kall den feks. clicked() legg til et 'alert'-kall i funksjonskroppen.
+    1)  Sett opp en vue instans og 'mount' den til div#app.
 
 
-        3)  Bruk 'v-on' direktivet med argumentet 'click' til å sette opp en 'click event' på button#btn1,
-            bruk metoden i punkt 2) som handler.
-
-        NOTE:   Noen direktiver kan ta i mot argumenter. Typisk syntax for direktiver med argumenter er:
-                v-<direktiv-navn>:<argument>="<data-felt>", f.eks: v-on:click="handler".
+    2)  Vue instansen har en option egenskap som heter 'methods'.
+        Den brukes for å sette opp funksjoner som kan brukes i vue konteksten.
+        Legg til en metode i methods og gi den et navn feks. clicked() legg til et 'alert'-kall i funksjonskroppen.
 
 
-        3.5000k)
-            Eventer på native html elementer fungerer på samme måte som native eventer.
-            Legg til et 'event' argument i metoden som du opprettet i punkt 2) og log ut target, <button ...> burde logges ut:-)
+    3)  Bruk 'v-on' direktivet med argumentet 'click' til å sette opp en 'click event' på button#btn1,
+        bruk metoden i punkt 2) som handler.
+
+    NOTE:   Noen direktiver kan ta i mot argumenter. Typisk syntax for direktiver med argumenter er:
+            v-<direktiv-navn>:<argument>="<data-felt>", f.eks: v-on:click="handler".
 
 
-        4)  Lag en ny metode som tar i mot et argument, feks. 'message'. Log ut 'message' argumentet til console.
+    4)  Lag en ny metode som tar i mot et argument, feks. 'message'. Log ut 'message' argumentet til console.
 
 
-        5)  Bruk v-on direktivet igjen og bind den nye metoden. Send inn en vilkårlig tekst og se at den printes ut til
-            console.
+    5)  Bruk v-on direktivet igjen og bind den nye metoden. Send inn en vilkårlig tekst og se at den printes ut til
+        console.
 
 
-        6)  Problem, i metoden fra punkt 5) har vi ikke lenger 'event' argumentet. Legg til et nytt argument i metoden,
-            kall den gjerne 'event'. logg ut 'event' argumentet til console.
+    6) Bruk @ aliaset istedet for å skrive v-on:
+
+    NOTE:   Noen direktiver har aliaser, v-on kan feks settes opp slik @<event>="handler" og er nok den mest brukte metoden.
 
 
-        7)  undefined? For å sende med event objektet må den manuelt ble sendt med i metoden.
-            Legg til $event til metodekallet i v-on.
+    7)  Legg til et tekstfelt og sett opp en change event, sjekk at handler blir kalt.
 
 
-        8)  Bytt ut alle steder v-on direktivet er brukt og bruk aliaset @click="handler" istedet.
+    8)  Legg til flere evententer på samme tekstfelt.
 
-        NOTE:   Noen direktiver har aliaser/shortcuts, v-on direktivet kan også settes opp med
-                aliaset @<argument>="handler", feks. @click="handler".
+    NOTE:   Det er mulig å binde flere handlere med v-on="{ 'event': handler }".
+            f.eks:
+                v-on="{
+                    'click': clickHandler,
+                    'mouseover': mouseOverHandler
+                }"
+            eller
+            <button @click="handler" @mouseover="handler" />
 
-                '@' aliaset er nok den mest vanlige måten å sette opp eventer på i Vue.
-
-
-        NOTE: v-on direktivet er kompatibel med alle native eventer et element har.
-
-
-        9)  Legg til et tekstfelt og sett opp en change event.
-
-        NOTE:   Det er mulig å binde flere handlere med v-on="{ 'event': handler }".
-                f.eks:
-                    v-on="{
-                        'click': clickHandler,
-                        'mouseover': mouseOverHandler
-                    }"
-                eller
-                <button @click="handler" @mouseover="handler" />
-
-    */
+*/
 
 </script>
 </body>

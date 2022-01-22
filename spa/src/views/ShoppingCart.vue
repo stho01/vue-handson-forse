@@ -1,3 +1,4 @@
+import {NotificationType} from "../domain/notification";
 <template>
     <div class="shopping-cart">
         <h1>Handleliste</h1>
@@ -32,10 +33,9 @@
 <script lang="ts">
 
     import Vue from "vue";
-    import {Component, Inject, Prop} from "vue-property-decorator";
+    import {Component, Prop} from "vue-property-decorator";
     import {IShoppingEntry} from "@/domain/shoppingList";
     import AppButton from "@/components/shared/AppButton.vue";
-    import {shoppingListApi} from "@/api/shoppingListApi";
     import INotification, {NotificationType} from "@/domain/notification";
     import {EventBusEvents, IEventBus} from "@/EventBus";
 
@@ -60,7 +60,11 @@
 
         async removeEntry(entry: IShoppingEntry): Promise<void> {
             // TODO: Remove entry.
-            alert("Implement me!");
+
+            this._notifyIfEventBusIsSet({
+                message: "Implement me",
+                type: NotificationType.ERROR
+            });
         }
 
         private _notifyIfEventBusIsSet(notification: INotification | string): void {

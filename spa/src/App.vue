@@ -26,7 +26,11 @@
 
             shoppingListApi.getShoppingList()
                 .then(list => {
-                    this.$store.shoppingList = list;
+                    this.$store.shoppingList = {
+                        entries: Array.prototype.slice.call(list.entries),
+                        id: list.id,
+                        name: list.name
+                    };
                 });
 
         }

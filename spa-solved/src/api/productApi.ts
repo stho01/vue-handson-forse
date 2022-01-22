@@ -1,10 +1,10 @@
 import {delay} from './delay';
-import {IProduct} from "@/domain/product";
-import {IProductDto, IProductNameDto} from "@/dto/product";
+import {IProduct, IProductName} from "@/domain/product";
+import {IProductDto} from "@/dto/product";
 
 class ProductApi {
 
-    private _products: IProduct[] = [
+    private _products: IProductDto[] = [
         {id: 'AAA123', name: 'Melk', weight: 1},
         {id: 'AAA126', name: 'Brød', weight: 0.6},
         {id: 'AAA128', name: 'Ketchup', weight: 1.5}
@@ -12,7 +12,7 @@ class ProductApi {
 
     //********************************************
 
-    async getProducts(): Promise<IProductNameDto[]> {
+    async getProducts(): Promise<IProductName[]> {
         await delay(); // to simulate data transfer over network.
 
         return this._products.map(product => ({
@@ -23,7 +23,7 @@ class ProductApi {
 
     //********************************************
 
-    async getProductsWithWeight(): Promise<IProductDto[]> {
+    async getProductsWithWeight(): Promise<IProduct[]> {
         await delay(); // to simulate data transfer over network.
 
         return this._products.map(p => ({
@@ -38,26 +38,27 @@ class ProductApi {
     async getProduct(id: string): Promise<IProduct> {
         await delay(); // to simulate data transfer over network.
 
-        const product: IProduct | undefined = this._products.filter(p => p.id === id).pop();
+        const product: IProductDto | undefined = this._products.filter(p => p.id === id).pop();
 
         if (!product) {
             throw new Error(`Produktet med id ${id} finnes ikke`);
         }
 
-        return product;
+        return { ...product };
     }
 
     //********************************************
 
-    async upsertProduct(product: IProductDto): Promise<void> {
+    async upsertProduct(product: IProduct): Promise<void> {
         await delay(); // to simulate data transfer over network.
 
         const existingProduct = this._products.find(p => p.id === product.id);
 
         if (!existingProduct) {
-            if (product.id === null) {
+            if (product.id == null || product.id === "") {
                 product.id = this.generateProductId();
             }
+
             this._products.push(product);
         } else {
             existingProduct.name = product.name;
